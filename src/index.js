@@ -14,11 +14,11 @@ function renderListofLists(lists) {
 }
 
 
-function renderRestaurants(restaurantObj){
+function renderRestaurants(restaurantArr){
 // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
     
-    restaurantObj.forEach(restaurant => {
+    restaurantArr.forEach(restaurant => {
         const divCard = document.createElement('div')
     
         divCard.innerHTML = `
@@ -48,10 +48,10 @@ function renderRestaurants(restaurantObj){
 // }
 
 function getRestaurantsFromList(listID) {
-    debugger
+    // debugger
     fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
-    .then(listObj => console.log(listObj.restaurants))
+    .then(listObj => renderRestaurants(listObj.restaurants))
 
     // .then(restaurantObj => renderRestaurants(restaurantObj))
 }
