@@ -29,7 +29,8 @@
   .parent {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    /* grid-template-rows: repeat(6, 1fr); */
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     }
@@ -37,8 +38,11 @@
     .div1 { grid-area: 1 / 1 / 4 / 8;
       border-style: solid;
       border-color: black;
+      margin: 0;
+      
     }
     .div2 { grid-area: 4 / 1 / 5 / 3; }
     .lists { grid-area: 5 / 1 / 9 / 3; }
+
     .restaurants-div { grid-area: 4 / 3 / 9 / 7; }
     .other-div { grid-area: 4 / 7 / 9 / 8; }
