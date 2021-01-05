@@ -25,13 +25,16 @@ function renderRestaurants(restaurantObj){
         <h3>${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
-        <img src=${restaurant.image_url}>
-        <a href="${restaurant.website_url}">Website</a>
+        <img src=${restaurant.image_url} width="200" height="200">
+        <br></br>
 
+        <a href="${restaurant.website_url}" >Website</a>
+        <br></br>
+        <br></br>
         `
         
         restaurantDiv.append(divCard)
-        debugger
+        // debugger
     })
 }
 
@@ -44,10 +47,13 @@ function renderRestaurants(restaurantObj){
 //     .then(console.log)
 // }
 
-function getRestaurants() {
-    fetch(`http://localhost:3000/restaurants/`)
+function getRestaurantsFromList(listID) {
+    debugger
+    fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
-    .then(restaurantObj => renderRestaurants(restaurantObj))
+    .then(listObj => console.log(listObj.restaurants))
+
+    // .then(restaurantObj => renderRestaurants(restaurantObj))
 }
 
 
@@ -70,7 +76,10 @@ ullist.addEventListener("click", evt => {
     evt.preventDefault()
     const id = evt.target.dataset.id 
     console.log(id)
-    getOneList(id)
+    // debugger
+    getRestaurantsFromList(id)
+
+    // getOneList(id)
 
 })
 
@@ -79,4 +88,4 @@ ullist.addEventListener("click", evt => {
 
 // initializers 
 getLists()
-  getRestaurants()
+//   getRestaurants()
