@@ -17,7 +17,7 @@ function renderListofLists(lists) {
 function renderRestaurants(restaurantArr){
 // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
-    
+    restaurantDiv.innerHTML = ``
     restaurantArr.forEach(restaurant => {
         const divCard = document.createElement('div')
     
