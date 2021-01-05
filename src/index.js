@@ -111,7 +111,7 @@ let setListDiv = (user) => {
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
-        
+        const id = user.id
         event.preventDefault()
     
     
@@ -172,6 +172,14 @@ function renderRestaurants(listObj){
           placeholder="Enter a restaurant's name..."
           class="input-text"
         />
+        <br><br />
+        <input
+          type="submit"
+          name="submit"
+          value="Add Restaurant"
+          class="submit"
+        />
+
         </form>
         <br></br>
         `
