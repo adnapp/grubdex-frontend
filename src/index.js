@@ -71,7 +71,7 @@ let setUsernameDiv = (user) => {
 }
 
 let logOut = () => {
-    user
+    nameDiv.innerHTML = " "
     sideBarDiv.innerHTML = " "
     restaurantDiv.innerHTML = " "
     showLoginPage()
@@ -87,6 +87,7 @@ let setLists = (user) => {
 let renderListLi = (list) => {
     
         const li = document.createElement('li')
+
         li.textContent = list.title
         console.log(li.textContent)
         li.dataset.id = list.id
@@ -96,10 +97,6 @@ let renderListLi = (list) => {
 
 
 function renderRestaurants(listObj){
-// debugger
-    // restaurantCollection = document.querySelector('.restaurantsDiv')
-    // debugger
-
      
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
@@ -172,20 +169,10 @@ let handleLoginForm = (evt) => {
 // }
 
 function getRestaurantsFromList(listID) {
-    // debugger
     fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
     .then(listObj => renderRestaurants(listObj))
-
-    // .then(restaurantObj => renderRestaurants(restaurantObj))
 }
-
-
-// function getLists() {
-//     fetch('http://localhost:3000/lists')
-//     .then(resp => resp.json())
-//     .then(lists => renderListofLists(lists))
-// }
 
 function getOneList(id) {
     fetch(`http://localhost:3000/lists/${id}`)
@@ -193,6 +180,7 @@ function getOneList(id) {
     .then(data => console.log(data))
 
 }
+
 
 // event listeners
 
