@@ -1,6 +1,7 @@
 // Const
 const ullist = document.querySelector(".ul_list")
 const restaurantDiv = document.querySelector(".restaurants-div")
+const listUrl = 'http://localhost:3000/lists'
 
 // Render functions
 
@@ -14,11 +15,31 @@ function renderListofLists(lists) {
 }
 
 
-function renderRestaurants(restaurantArr){
+function renderRestaurants(listObj){
 // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
-    restaurantDiv.innerHTML = ``
-    restaurantArr.forEach(restaurant => {
+    // debugger
+
+     
+    restaurantDiv.innerHTML = `
+        <h3> ${listObj.title} </h3>
+        <p>${listObj.description}</p>
+
+        <br></br>
+        <form class="add-restaurant-form">
+        <h4>Add a new restaurant to this list</h4>
+
+        <input
+          type="text"
+          name="name"
+          value=""
+          placeholder="Enter a restaurant's name..."
+          class="input-text"
+        />
+        </form>
+        <br></br>
+        `
+    listObj.restaurants.forEach(restaurant => {
         const divCard = document.createElement('div')
     
         divCard.innerHTML = `
@@ -32,9 +53,7 @@ function renderRestaurants(restaurantArr){
         <br></br>
         <br></br>
         `
-        
         restaurantDiv.append(divCard)
-        // debugger
     })
 }
 
@@ -51,7 +70,7 @@ function getRestaurantsFromList(listID) {
     // debugger
     fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
-    .then(listObj => renderRestaurants(listObj.restaurants))
+    .then(listObj => renderRestaurants(listObj))
 
     // .then(restaurantObj => renderRestaurants(restaurantObj))
 }
@@ -78,10 +97,40 @@ ullist.addEventListener("click", evt => {
     console.log(id)
     // debugger
     getRestaurantsFromList(id)
-
     // getOneList(id)
-
 })
+
+
+const createList = document.querySelector('.create-new-list-form')
+
+createList.addEventListener('submit', function (event){
+    event.preventDefault()
+
+    // debugger
+    const newListObj = {
+        title: event.target.title.value, 
+        description: event.target.description.value, 
+        restaurants: [],
+        user: {}
+    }
+
+    const config = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: JSON.stringify(newListObj)
+    }
+
+    fetch('http://localhost:3000/lists', config)
+    .then(resp => resp.json())
+    .then(console.log)
+
+    event.target.reset()
+})
+
+
 
 
 
