@@ -120,7 +120,7 @@ let setListDiv = (user) => {
             title: event.target.title.value, 
             description: event.target.description.value, 
             restaurants: [],
-            user: user
+            user_id: id
         }
     
         const config = {
