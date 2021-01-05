@@ -111,8 +111,7 @@ let setListDiv = (user) => {
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
-        debugger
-        const id = user.id
+        
         event.preventDefault()
     
     
@@ -123,6 +122,7 @@ let setListDiv = (user) => {
             user: user
         }
     
+    debugger
         const config = {
             method: "POST",
             headers: {
