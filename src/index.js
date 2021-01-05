@@ -70,7 +70,7 @@ let setUsernameDiv = (user) => {
 }
 
 let logOut = () => {
-    user
+    nameDiv.innerHTML = " "
     sideBarDiv.innerHTML = " "
     restaurantDiv.innerHTML = " "
     showLoginPage()
