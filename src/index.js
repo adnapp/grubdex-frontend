@@ -66,9 +66,9 @@ let setUsernameDiv = (user) => {
 
     nameDiv.append(h3NameTag, logOutButton)
 
-    // logOutButton.addEventListener("click", (evt) => {
-    //     logOut()
-    // })
+    logOutButton.addEventListener("click", (evt) => {
+        logOut()
+    })
 }
 
 let logOut = () => {
@@ -134,7 +134,9 @@ let setListDiv = (user) => {
     
         fetch('http://localhost:3000/lists', config)
         .then(resp => resp.json())
-        .then(console.log)
+        .then(list => renderListLi(list),
+        // How do I then get this to add to the page with all the details?
+        )
     
         event.target.reset()
     })
@@ -156,6 +158,13 @@ let renderListLi = (list) => {
 
 
 function renderRestaurants(listObj){
+<<<<<<< HEAD
+=======
+//
+    // restaurantCollection = document.querySelector('.restaurantsDiv')
+
+
+>>>>>>> 789a8e1c2584bf348f700bc809fd4cd492ddfb7d
      
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
@@ -195,14 +204,30 @@ function renderRestaurants(listObj){
 
         <a href="${restaurant.website_url}" >Website</a>
         <br></br>
-        <br></br>
+        <button>Remove Restaurant</button>
         `
+        const removeBtn = divCard.querySelector('button')
+        removeBtn.dataset.id = restaurant.id
+
+        removeBtn.addEventListener("click", handleRemoveButton )
+
         restaurantDiv.append(divCard)
     })
 }
 
 
 // Fetch functions
+
+let handleRemoveButton = (evt) => {
+    evt.preventDefault()
+    const id = evt.target.dataset.id
+    console.log(id)
+
+    fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
+        method: 'DELETE',
+       }).then(res => res.json())
+       .then(data => console.log(data))
+}
 
 let handleLoginForm = (evt) => {
     evt.preventDefault()
