@@ -47,7 +47,8 @@ let showLoginPage = () => {
 
 let showUserInformation = (user) => {
     setUsernameDiv(user)
-    setLists(user)
+    setListDiv(user)
+    // setNewFormList(user)
 
 }
 
@@ -65,9 +66,9 @@ let setUsernameDiv = (user) => {
 
     nameDiv.append(h3NameTag, logOutButton)
 
-    logOutButton.addEventListener("click", (evt) => {
-        logOut()
-    })
+    // logOutButton.addEventListener("click", (evt) => {
+    //     logOut()
+    // })
 }
 
 let logOut = () => {
@@ -78,10 +79,66 @@ let logOut = () => {
 }
 
 
-let setLists = (user) => {
+let setListDiv = (user) => {
+    
     ullist.innerHTML = " "
+    sideBarDiv.innerHTML = `<form class="create-new-list-form">
+    <h3>Create a new list</h3>
+    <input
+      type="text"
+      name="title"
+      value=""
+      placeholder="Enter the list's name..."
+      class="input-text"
+    />
+    <br><br />
+    <input
+      type="text"
+      name="description"
+      value=""
+      placeholder="Enter the list desription"
+      class="input-area"
+    />
+    <br><br />
+    <input
+      type="submit"
+      name="submit"
+      value="Create New List"
+      class="submit"
+    />
+  </form>`
     console.log(user)
     user.lists.forEach(renderListLi)
+    const createList = document.querySelector('.create-new-list-form')
+    createList.addEventListener('submit', function (event){
+        debugger
+        const id = user.id
+        event.preventDefault()
+    
+    
+        const newListObj = {
+            title: event.target.title.value, 
+            description: event.target.description.value, 
+            restaurants: [],
+            user: user
+        }
+    
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(newListObj)
+        }
+    
+        fetch('http://localhost:3000/lists', config)
+        .then(resp => resp.json())
+        .then(console.log)
+    
+        event.target.reset()
+    })
+
 }
 
 let renderListLi = (list) => {
@@ -93,6 +150,8 @@ let renderListLi = (list) => {
         ullist.append(li)
         sideBarDiv.append(ullist)
 }
+
+
 
 
 function renderRestaurants(listObj){
@@ -205,35 +264,6 @@ ullist.addEventListener("click", evt => {
     // getOneList(id)
 })
 
-
-const createList = document.querySelector('.create-new-list-form')
-
-createList.addEventListener('submit', function (event){
-    event.preventDefault()
-
-    // debugger
-    const newListObj = {
-        title: event.target.title.value, 
-        description: event.target.description.value, 
-        restaurants: [],
-        user: {}
-    }
-
-    const config = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        },
-        body: JSON.stringify(newListObj)
-    }
-
-    fetch('http://localhost:3000/lists', config)
-    .then(resp => resp.json())
-    .then(console.log)
-
-    event.target.reset()
-})
 
 
 
