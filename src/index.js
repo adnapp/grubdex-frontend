@@ -123,6 +123,7 @@ let setListDiv = (user) => {
             user_id: id
         }
     
+    debugger
         const config = {
             method: "POST",
             headers: {
@@ -146,6 +147,7 @@ let setListDiv = (user) => {
 let renderListLi = (list) => {
     
         const li = document.createElement('li')
+
         li.textContent = list.title
         li.dataset.id = list.id
         ullist.append(li)
@@ -156,11 +158,14 @@ let renderListLi = (list) => {
 
 
 function renderRestaurants(listObj){
+<<<<<<< HEAD
+=======
 //
     // restaurantCollection = document.querySelector('.restaurantsDiv')
     // debugger
 
 
+>>>>>>> 789a8e1c2584bf348f700bc809fd4cd492ddfb7d
      
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
@@ -177,6 +182,14 @@ function renderRestaurants(listObj){
           placeholder="Enter a restaurant's name..."
           class="input-text"
         />
+        <br><br />
+        <input
+          type="submit"
+          name="submit"
+          value="Add Restaurant"
+          class="submit"
+        />
+
         </form>
         <br></br>
         `
@@ -258,20 +271,10 @@ let handleLoginForm = (evt) => {
 // }
 
 function getRestaurantsFromList(listID) {
-    // debugger
     fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
     .then(listObj => renderRestaurants(listObj))
-
-    // .then(restaurantObj => renderRestaurants(restaurantObj))
 }
-
-
-// function getLists() {
-//     fetch('http://localhost:3000/lists')
-//     .then(resp => resp.json())
-//     .then(lists => renderListofLists(lists))
-// }
 
 function getOneList(id) {
     fetch(`http://localhost:3000/lists/${id}`)
@@ -279,6 +282,7 @@ function getOneList(id) {
     .then(data => console.log(data))
 
 }
+
 
 // event listeners
 
