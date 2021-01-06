@@ -158,13 +158,10 @@ let renderListLi = (list) => {
 
 
 function renderRestaurants(listObj){
-<<<<<<< HEAD
-=======
 //
     // restaurantCollection = document.querySelector('.restaurantsDiv')
+debugger
 
-
->>>>>>> 789a8e1c2584bf348f700bc809fd4cd492ddfb7d
      
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
@@ -194,7 +191,7 @@ function renderRestaurants(listObj){
         `
     listObj.restaurants.forEach(restaurant => {
         const divCard = document.createElement('div')
-    
+    debugger
         divCard.innerHTML = `
         <h3>${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
