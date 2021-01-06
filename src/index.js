@@ -98,7 +98,7 @@ let logOut = () => {
 
 //this loads the list div on the left after login
 let setListDiv = (user) => {
-    
+    // debugger
     ullist.innerHTML = " "
     sideBarDiv.innerHTML = `<form class="create-new-list-form">
     <h3>Create a new list</h3>
@@ -169,7 +169,6 @@ let renderListLi = (list) => {
 }
 //render all restaurants on main div
 function renderLists(listObj){
-    // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
     
@@ -193,8 +192,7 @@ function renderLists(listObj){
         />
         <br><br />
         <textarea
-          name="description"
-          >
+          name="description">
           ${listObj.description}    
           </textarea>
         <br><br />
@@ -217,13 +215,17 @@ function renderLists(listObj){
 
     deleteListButton.addEventListener("click", event => {
         const id = event.target.dataset.id
+        console.log(id)
 
-    fetch(`http://localhost:3000/lists/${id}`, {
-            method: "DELETE"
-        })
-        // need to refresh this
-
+        deleteListFunction(id)  
+        console.log(user.lists)
+        setListDiv(user)
+        restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
+        
     })
+    
+
+    
 
     const updateForm = document.querySelector(".update-form-info")
     updateForm.dataset.id = listObj.id
@@ -403,7 +405,7 @@ function updateListInfo(updatedObj,id) {
 function renderUserInfo(user) {
     fetch(`http://localhost:3000/users/${user.id}`)
     .then(res => res.json())
-    .then(user => setListDiv(user) )
+    .then(user => setListDiv(user))
 }
 
 
@@ -447,8 +449,14 @@ function addRestaurantToListFetch(restaurantID, listID) {
     //we only have the ID.
     //our existing func uses the obj to generate.. should we create new
 
-
 }
+
+function deleteListFunction(id)  {
+    fetch(`http://localhost:3000/lists/${id}`, {
+            method: "DELETE"
+        })
+        
+    }
 
 
 // event listeners
