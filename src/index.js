@@ -7,6 +7,7 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
 
+
 // Render functions
 
 let showLoginPage = () => {
@@ -158,20 +159,40 @@ let renderListLi = (list) => {
 
 
 function renderRestaurants(listObj){
-<<<<<<< HEAD
-=======
-//
-    // restaurantCollection = document.querySelector('.restaurantsDiv')
-    // debugger
-
-
->>>>>>> 789a8e1c2584bf348f700bc809fd4cd492ddfb7d
-     
+   
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
         <p>${listObj.description}</p>`
 
         rightDiv.innerHTML= `
+        <form class="update-form-info">
+        <h4>Update List Info</h4>
+        <input
+          type="text"
+          name="title"
+          value=""
+          placeholder= ${listObj.title}
+          class="input-text"
+        />
+        <br><br />
+        <input
+          type="text"
+          name="description"
+          value=""
+          placeholder= ${listObj.description}
+          class="input-text"
+        />
+        <br><br />
+        <input
+          type="submit"
+          name="submit"
+          value="Update List"
+          class="submit"
+        />
+
+        </form>
+        <br><br />
+
         <form class="add-restaurant-form">
         <h4>Add a new restaurant to this list</h4>
 
@@ -191,8 +212,8 @@ function renderRestaurants(listObj){
         />
 
         </form>
-        <br></br>
         `
+       
     listObj.restaurants.forEach(restaurant => {
         const divCard = document.createElement('div')
     
@@ -219,9 +240,23 @@ function renderRestaurants(listObj){
         
 
         removeBtn.addEventListener("click", handleRemoveButton )
+        
 
         restaurantDiv.append(divCard)
+
+    })
+    const updateForm = document.querySelector(".update-form-info")
+    updateForm.dataset.id = listObj.id
+
+    updateForm.addEventListener("submit", evt => {
+        evt.preventDefault()
+        const id = evt.target.dataset.id
         
+        const updatedObj = {
+             title: evt.target.title.value,
+             description:  evt.target.description.value
+        }
+        updateListInfo(updatedObj, id)
     })
 }
 
@@ -237,6 +272,12 @@ let handleRemoveButton = (evt) => {
         method: "DELETE"
     }).then(res => res.json())
     .then(console.log)
+    // how to then remove from list on DOM
+}
+
+let handleUpdateForm = (evt) => {
+    evt.preventDefault()
+    debugger
 }
 
 let handleLoginForm = (evt) => {
@@ -262,6 +303,18 @@ let handleLoginForm = (evt) => {
             console.error(returnedData.error)
         }
     })  
+}
+
+function updateListInfo(updatedObj,id) {
+    fetch(`http://localhost:3000/lists/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Accept": "Application/json",
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(updatedObj)
+    }).then(res => res.json())
+    .then(data => renderRestaurants(data))
 }
 
 // const getOneRestaurant = id => {
@@ -293,6 +346,10 @@ ullist.addEventListener("click", evt => {
     getRestaurantsFromList(id)
     // getOneList(id)
 })
+
+
+
+
 
 
 
