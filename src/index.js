@@ -205,9 +205,14 @@ function renderLists(listObj){
           class="submit"
         />
         </form>`
+
+
+        newDiv = document.createElement('div')
+        newDiv.innerHTML = `<p>Map will go here</p>`
+        restaurantDiv.appendChild(newDiv)
     
+        debugger
     renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
-    
     const deleteListButton = document.querySelector('.delete-list-button')
 
     deleteListButton.addEventListener("click", event => {
@@ -257,6 +262,8 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
+
+
       restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
         divCard.innerHTML = `
@@ -304,9 +311,9 @@ function renderRestaurantAPI(restObj, listID) {
 
         <a href="${restaurant.website_url}" >Website</a>
         <br></br>
-        <button class="add-restaurant-to-list-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
+        <button class="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
         `
-        const addBtn = divCard.querySelector('.add-restaurant-to-list-button')
+        const addBtn = divCard.querySelector('.add-restaurant-button')
         // debugger
         addBtn.addEventListener("click", evt=> {
             let restaurantID = evt.target.dataset.id;
@@ -434,9 +441,11 @@ function addRestaurantToListFetch(restaurantID, listID) {
     body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => {
-    console.log('Success:', data);
-    })
+    .then(console.log)
+    debugger
+    //we want to refresh restaurant page here, but we do not have an objj
+    //we only have the ID.
+    //our existing func uses the obj to generate.. should we create new
 
 
 }
