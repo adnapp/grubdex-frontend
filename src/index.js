@@ -188,16 +188,14 @@ function renderLists(listObj){
         <input
           type="text"
           name="title"
-          value=""
-          placeholder= ${listObj.title}
+          value= ${listObj.title}
           class="input-text"
         />
         <br><br />
         <input
           type="text"
           name="description"
-          value=""
-          placeholder= ${listObj.description}
+          value= ${listObj.description}
           class="input-text"
         />
         <br><br />
@@ -215,6 +213,7 @@ function renderLists(listObj){
 
     deleteListButton.addEventListener("click", event => {
         const id = event.target.dataset.id
+        console.log(id)
 
     fetch(`http://localhost:3000/lists/${id}`, {
             method: "DELETE"
