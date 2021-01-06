@@ -154,8 +154,8 @@ let renderListLi = (list) => {
         sideBarDiv.append(ullist)
 }
 //render all restaurants
-function renderRestaurants(listObj){
-
+function renderLists(listObj){
+    // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
 
@@ -165,33 +165,57 @@ function renderRestaurants(listObj){
         <p>${listObj.description}</p>`
 
         rightDiv.innerHTML= `
-        <form class="add-restaurant-form">
-        <h4>Add a new restaurant to this list</h4>
+    
+        <br></br>
 
-       <input
-          type="text"
-          name="name"
-          value=""
-          placeholder="Enter a restaurant's name..."
-          class="input-text"
-        />
-        <br><br />
-        <input
-          type="submit"
-          name="submit"
-          value="Add Restaurant"
-          class="submit"
-          data-id = ${id}
-        />
+        <button class="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
 
-        </form>
         <br></br>
 
         <button class="delete-list-button" data-id = ${id} >Delete list</button>
         `
-    listObj.restaurants.forEach(restaurant => {
+
+        renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
+    
+    const deleteListButton = document.querySelector('.delete-list-button')
+
+    deleteListButton.addEventListener("click", event => {
+        const id = event.target.dataset.id
+
+    fetch(`http://localhost:3000/lists/${id}`, {
+            method: "DELETE"
+        })
+        // need to refresh this
+
+    })
+
+
+
+
+    const addRestaurantToListButton = document.querySelector('.add-restaurant-to-list-button')
+
+    addRestaurantToListButton.addEventListener("click", event=> {
+        restaurantDiv.innerHTML = ``
+        
+        listID = event.target.dataset.id
+        //let's list out all restaurants in db.. fetch
+
+        const data = { username: 'example' };
+
+        fetch(`http://localhost:3000/restaurants/`)
+        .then(resp => resp.json())
+        // .then(allRestaurantObj => renderLists(allRestaurantObj))
+        .then(restaurantListObj => renderRestaurantAPI(restaurantListObj, listID))     
+    })
+
+
+}
+
+function renderRestaurantsOnList(restObj,addRestToListsObj) {
+
+    
+    restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
-    // debugger
         divCard.innerHTML = `
         <h3>${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
@@ -206,31 +230,61 @@ function renderRestaurants(listObj){
         const removeBtn = divCard.querySelector('button')
         
         const restid = restaurant.id 
-        listObj.AddRestaurantToLists.filter(item => {
+        addRestToListsObj.filter(item => {
             if (item.restaurant_id === restid)
             removeBtn.dataset.id = item.id
             console.log(removeBtn.dataset.id)
         }
             )
-        
-
         removeBtn.addEventListener("click", handleRemoveButton )
 
         restaurantDiv.append(divCard)
         
     })
+    // debugger
+}
 
-    const deleteListButton = document.querySelector('.delete-list-button')
+function renderRestaurantAPI(restObj, listID) {
 
-    deleteListButton.addEventListener("click", event => {
-        const id = event.target.dataset.id
+    restaurantDiv.innerHTML = `
+    <h3> Select Restaurant to Add to list...</h3>
+    <br></br>`
+    // debugger
+    restObj.forEach(restaurant => {
+        const divCard = document.createElement('div')
+        divCard.innerHTML = `
+        <h3>${restaurant.name}</h3>
+        <h4>${restaurant.cuisine}</h4>
+        <h4>${restaurant.address}</h4>
+        <img src=${restaurant.image_url} width="200" height="200">
+        <br></br>
 
-    fetch(`http://localhost:3000/lists/${id}`, {
-            method: "DELETE"
+        <a href="${restaurant.website_url}" >Website</a>
+        <br></br>
+        <button class="add-restaurant-to-list-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
+        `
+        const addBtn = divCard.querySelector('.add-restaurant-to-list-button')
+        // debugger
+        addBtn.addEventListener("click", evt=> {
+            let restaurantID = evt.target.dataset.id;
+            //  listID is here
+
+            addRestaurantToListFetch(restaurantID, listID)
+            
+            // debugger
+
+
+            //in here, i want to have the listid, and restaurant id
+        //then create Addrestauranttolist
+        //then reload restaurant list for this list
         })
-        // need to refresh this
+        //put entire function here, try grqb listID
 
+
+        restaurantDiv.append(divCard)
+        
     })
+    
 }
 
 
@@ -246,6 +300,16 @@ let handleRemoveButton = (evt) => {
         method: "DELETE"
     }).then(res => res.json())
     .then(renderListLi)
+}
+
+
+//coming from render restaurant API at bottoom event listener
+let handleAddRestaurantToListButton = (evt) => {
+    debugger
+
+    //in here, i want to have the listid, and restaurant id
+    //then create Addrestauranttolist
+    //then reload restaurant list for this list
 }
 
 let handleLoginForm = (evt) => {
@@ -282,13 +346,35 @@ let handleLoginForm = (evt) => {
 function getRestaurantsFromList(listID) {
     fetch(`http://localhost:3000/lists/${listID}`)
     .then(resp => resp.json())
-    .then(listObj => renderRestaurants(listObj))
+    .then(listObj => renderLists(listObj))
 }
 
 function getOneList(id) {
     fetch(`http://localhost:3000/lists/${id}`)
     .then(resp => resp.json())
     .then(data => console.log(data))
+
+}
+
+function addRestaurantToListFetch(restaurantID, listID) {
+    // debugger
+    const data = { 
+        list_id: listID,
+        restaurant_id: restaurantID
+        };
+
+    fetch('http://localhost:3000/AddRestaurantToLists', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log('Success:', data);
+    })
+
 
 }
 
