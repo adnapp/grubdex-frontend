@@ -98,7 +98,7 @@ let logOut = () => {
 
 //this loads the list div on the left after login
 let setListDiv = (user) => {
-    
+    // debugger
     ullist.innerHTML = " "
     sideBarDiv.innerHTML = `<form class="create-new-list-form">
     <h3>Create a new list</h3>
@@ -169,7 +169,6 @@ let renderListLi = (list) => {
 }
 //render all restaurants on main div
 function renderLists(listObj){
-    // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
     
@@ -192,12 +191,10 @@ function renderLists(listObj){
           class="input-text"
         />
         <br><br />
-        <input
-          type="text"
-          name="description"
-          value= ${listObj.description}
-          class="input-text"
-        />
+        <textarea
+          name="description">
+          ${listObj.description}    
+          </textarea>
         <br><br />
         <input
           type="submit"
@@ -215,12 +212,15 @@ function renderLists(listObj){
         const id = event.target.dataset.id
         console.log(id)
 
-    fetch(`http://localhost:3000/lists/${id}`, {
-            method: "DELETE"
-        })
-        // need to refresh this
-
+        deleteListFunction(id)  
+        console.log(user.lists)
+        setListDiv(user)
+        restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
+        
     })
+    
+
+    
 
     const updateForm = document.querySelector(".update-form-info")
     updateForm.dataset.id = listObj.id
@@ -278,7 +278,7 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         addRestToListsObj.filter(item => {
             if (item.restaurant_id === restid)
             removeBtn.dataset.id = item.id
-            console.log(removeBtn.dataset.id)
+            // console.log(removeBtn.dataset.id)
         }
             )
         removeBtn.addEventListener("click", handleRemoveButton )
@@ -340,7 +340,7 @@ function renderRestaurantAPI(restObj, listID) {
 let handleRemoveButton = (evt) => {
     evt.preventDefault()
     const id = evt.target.dataset.id
-    console.log(id)
+    // console.log(id)
 
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
@@ -361,7 +361,7 @@ let handleAddRestaurantToListButton = (evt) => {
 let handleLoginForm = (evt) => {
     evt.preventDefault()
     let name = evt.target.name.value
-    console.log(name)
+    // console.log(name)
 
     fetch('http://localhost:3000/log_me_in', {
         method: "POST",
@@ -398,7 +398,7 @@ function updateListInfo(updatedObj,id) {
 function renderUserInfo(user) {
     fetch(`http://localhost:3000/users/${user.id}`)
     .then(res => res.json())
-    .then(user => setListDiv(user) )
+    .then(user => setListDiv(user))
 }
 
 
@@ -440,8 +440,14 @@ function addRestaurantToListFetch(restaurantID, listID) {
     console.log('Success:', data);
     })
 
-
 }
+
+function deleteListFunction(id)  {
+    fetch(`http://localhost:3000/lists/${id}`, {
+            method: "DELETE"
+        })
+        
+    }
 
 
 // event listeners
