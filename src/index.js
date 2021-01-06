@@ -7,6 +7,9 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
 
+
+
+
 // Render functions
 
 let showLoginPage = () => {
@@ -44,13 +47,9 @@ let showLoginPage = () => {
 
 }
 
-// what to do with User Response
-
 let showUserInformation = (user) => {
     setUsernameDiv(user)
     setListDiv(user)
-    // setNewFormList(user)
-
 }
 
 // set usernameDiv After Login
@@ -80,6 +79,7 @@ let logOut = () => {
 }
 
 
+//this loads the list div on the left after login
 let setListDiv = (user) => {
     
     ullist.innerHTML = " "
@@ -109,6 +109,7 @@ let setListDiv = (user) => {
     />
   </form>`
     console.log(user)
+    // debugger
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
@@ -123,7 +124,6 @@ let setListDiv = (user) => {
             user_id: id
         }
     
-    debugger
         const config = {
             method: "POST",
             headers: {
@@ -153,14 +153,11 @@ let renderListLi = (list) => {
         ullist.append(li)
         sideBarDiv.append(ullist)
 }
-
-
-
-
+//render all restaurants
 function renderRestaurants(listObj){
-//
+
     // restaurantCollection = document.querySelector('.restaurantsDiv')
-    // debugger
+     const id = listObj.id
 
      
     restaurantDiv.innerHTML = `
@@ -184,14 +181,17 @@ function renderRestaurants(listObj){
           name="submit"
           value="Add Restaurant"
           class="submit"
+          data-id = ${id}
         />
 
         </form>
         <br></br>
+
+        <button class="delete-list-button" data-id = ${id} >Delete list</button>
         `
     listObj.restaurants.forEach(restaurant => {
         const divCard = document.createElement('div')
-    debugger
+    // debugger
         divCard.innerHTML = `
         <h3>${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
@@ -219,11 +219,24 @@ function renderRestaurants(listObj){
         restaurantDiv.append(divCard)
         
     })
+
+    const deleteListButton = document.querySelector('.delete-list-button')
+
+    deleteListButton.addEventListener("click", event => {
+        const id = event.target.dataset.id
+
+    fetch(`http://localhost:3000/lists/${id}`, {
+            method: "DELETE"
+        })
+        // need to refresh this
+
+    })
 }
 
 
 // Fetch functions
 
+//removes restaurant from a list -- need to add render
 let handleRemoveButton = (evt) => {
     evt.preventDefault()
     const id = evt.target.dataset.id
@@ -232,7 +245,7 @@ let handleRemoveButton = (evt) => {
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
     }).then(res => res.json())
-    .then(console.log)
+    .then(renderListLi)
 }
 
 let handleLoginForm = (evt) => {
@@ -285,18 +298,10 @@ function getOneList(id) {
 ullist.addEventListener("click", evt => {
     evt.preventDefault()
     const id = evt.target.dataset.id 
-    // debugger
     getRestaurantsFromList(id)
-    // getOneList(id)
 })
 
 
 
-
-
-
-
-// initializers 
-// getLists()
+//initializers
 showLoginPage()
-//   getRestaurants()
