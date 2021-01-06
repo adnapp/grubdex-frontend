@@ -6,6 +6,7 @@ const rightDiv = document.querySelector(".other-div")
 const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
+var user = {}
 
 
 // Render functions
@@ -22,6 +23,7 @@ let showLoginPage = () => {
     let nameLabel = document.createElement('label')
     nameLabel.htmlFor = "name"
     nameLabel.innerText = "name"
+    
 
     let nameInput = document.createElement('input')
     nameInput.type = "text"
@@ -41,9 +43,23 @@ let showLoginPage = () => {
 
     restaurantDiv.append(loginForm)
 
-    loginForm.addEventListener("submit", handleLoginForm )
+
+    loginForm.addEventListener("submit", handleLoginForm)
 
 }
+// making login pop up box
+// function openLoginForm(){
+//     document.body.classList.add("showLoginForm")
+//     const loginForm = document.querySelector(".form")
+//     loginButton = loginForm.querySelector('button')
+//     loginButton.addEventListener('click', evt => {
+//         console.log(evt)
+
+//     })
+//   }
+//   function closeLoginForm(){
+//     document.body.classList.remove("showLoginForm");
+//   }
 
 // what to do with User Response
 
@@ -257,8 +273,15 @@ function renderRestaurants(listObj){
              description:  evt.target.description.value
         }
         updateListInfo(updatedObj, id)
-    })
+        
+    }) 
+    renderUserInfo(user)  
+    
 }
+
+// function renderSideBarDiv(user.lists) {
+    
+// }
 
 
 // Fetch functions
@@ -298,6 +321,7 @@ let handleLoginForm = (evt) => {
     .then(res => res.json())
     .then((returnedData) => {
         if(returnedData.id) {
+            user = returnedData
             showUserInformation(returnedData)
         } else {
             console.error(returnedData.error)
@@ -316,6 +340,17 @@ function updateListInfo(updatedObj,id) {
     }).then(res => res.json())
     .then(data => renderRestaurants(data))
 }
+function renderUserInfo(user) {
+    fetch(`http://localhost:3000/users/${user.id}`)
+    .then(res => res.json())
+    .then(user => setListDiv(user) )
+}
+
+// function renderUserInfo(user){
+//     fetch(`http://localhost:3000/user/${user.id}`)
+//     .then(res => res)
+//     .then(data => {console.log(data.list)}
+// }
 
 // const getOneRestaurant = id => {
 //     fetch(`http://localhost:3000/restaurants/${id}`)
