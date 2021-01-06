@@ -188,18 +188,15 @@ function renderLists(listObj){
         <input
           type="text"
           name="title"
-          value=""
-          placeholder= ${listObj.title}
+          value= ${listObj.title}
           class="input-text"
         />
         <br><br />
-        <input
-          type="text"
+        <textarea
           name="description"
-          value=""
-          placeholder= ${listObj.description}
-          class="input-text"
-        />
+          >
+          ${listObj.description}    
+          </textarea>
         <br><br />
         <input
           type="submit"
@@ -279,7 +276,7 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         addRestToListsObj.filter(item => {
             if (item.restaurant_id === restid)
             removeBtn.dataset.id = item.id
-            console.log(removeBtn.dataset.id)
+            // console.log(removeBtn.dataset.id)
         }
             )
         removeBtn.addEventListener("click", handleRemoveButton )
@@ -341,7 +338,7 @@ function renderRestaurantAPI(restObj, listID) {
 let handleRemoveButton = (evt) => {
     evt.preventDefault()
     const id = evt.target.dataset.id
-    console.log(id)
+    // console.log(id)
 
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
@@ -362,7 +359,7 @@ let handleAddRestaurantToListButton = (evt) => {
 let handleLoginForm = (evt) => {
     evt.preventDefault()
     let name = evt.target.name.value
-    console.log(name)
+    // console.log(name)
 
     fetch('http://localhost:3000/log_me_in', {
         method: "POST",
