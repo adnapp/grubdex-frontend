@@ -2,6 +2,7 @@
 const ullist = document.querySelector(".ul_list")
 const sideBarDiv = document.querySelector(".sidebarDiv")
 const restaurantDiv = document.querySelector(".restaurants-div")
+const rightDiv = document.querySelector(".other-div")
 const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
@@ -146,7 +147,6 @@ let renderListLi = (list) => {
     
         const li = document.createElement('li')
         li.textContent = list.title
-        console.log(li.textContent)
         li.dataset.id = list.id
         ullist.append(li)
         sideBarDiv.append(ullist)
@@ -158,18 +158,19 @@ let renderListLi = (list) => {
 function renderRestaurants(listObj){
 //
     // restaurantCollection = document.querySelector('.restaurantsDiv')
+    // debugger
 
 
      
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
-        <p>${listObj.description}</p>
+        <p>${listObj.description}</p>`
 
-        <br></br>
+        rightDiv.innerHTML= `
         <form class="add-restaurant-form">
         <h4>Add a new restaurant to this list</h4>
 
-        <input
+       <input
           type="text"
           name="name"
           value=""
@@ -194,11 +195,20 @@ function renderRestaurants(listObj){
         <button>Remove Restaurant</button>
         `
         const removeBtn = divCard.querySelector('button')
-        removeBtn.dataset.id = restaurant.id
+        
+        const restid = restaurant.id 
+        listObj.AddRestaurantToLists.filter(item => {
+            if (item.restaurant_id === restid)
+            removeBtn.dataset.id = item.id
+            console.log(removeBtn.dataset.id)
+        }
+            )
+        
 
         removeBtn.addEventListener("click", handleRemoveButton )
 
         restaurantDiv.append(divCard)
+        
     })
 }
 
@@ -211,9 +221,9 @@ let handleRemoveButton = (evt) => {
     console.log(id)
 
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
-        method: 'DELETE',
-       }).then(res => res.json())
-       .then(data => console.log(data))
+        method: "DELETE"
+    }).then(res => res.json())
+    .then(console.log)
 }
 
 let handleLoginForm = (evt) => {
@@ -275,7 +285,6 @@ function getOneList(id) {
 ullist.addEventListener("click", evt => {
     evt.preventDefault()
     const id = evt.target.dataset.id 
-    console.log(id)
     // debugger
     getRestaurantsFromList(id)
     // getOneList(id)
