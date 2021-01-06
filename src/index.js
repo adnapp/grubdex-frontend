@@ -107,7 +107,7 @@ let setListDiv = (user) => {
       name="title"
       value=""
       placeholder="Enter the list's name..."
-      class="input-text"
+      class="input-text" 
     />
     <br><br />
     <input
@@ -126,7 +126,6 @@ let setListDiv = (user) => {
     />
   </form>`
     console.log(user)
-    // debugger
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
@@ -155,10 +154,8 @@ let setListDiv = (user) => {
         .then(list => renderListLi(list),
         // How do I then get this to add to the page with all the details?
         )
-    
         event.target.reset()
     })
-
 }
 
 let renderListLi = (list) => {
@@ -170,29 +167,22 @@ let renderListLi = (list) => {
         ullist.append(li)
         sideBarDiv.append(ullist)
 }
-//render all restaurants
+//render all restaurants on main div
 function renderLists(listObj){
     // debugger
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
-
-     
+    
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
         <p>${listObj.description}</p>`
 
         rightDiv.innerHTML= `
-    
         <br></br>
-
         <button class="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
-
         <br></br>
-
         <button class="delete-list-button" data-id = ${id} >Delete list</button>
-        
-        
-        
+
         <form class="update-form-info">
         <h4>Update List Info</h4>
         <input
@@ -217,26 +207,9 @@ function renderLists(listObj){
           value="Update List"
           class="submit"
         />
-
-        </form>
-        <br><br />
-
-        `
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-        renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
+        </form>`
+    
+    renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
     
     const deleteListButton = document.querySelector('.delete-list-button')
 
@@ -250,8 +223,21 @@ function renderLists(listObj){
 
     })
 
+    const updateForm = document.querySelector(".update-form-info")
+    updateForm.dataset.id = listObj.id
 
-
+    updateForm.addEventListener("submit", evt => {
+        evt.preventDefault()
+        const id = evt.target.dataset.id
+        
+        const updatedObj = {
+             title: evt.target.title.value,
+             description:  evt.target.description.value
+        }
+        updateListInfo(updatedObj, id)
+        
+    }) 
+    renderUserInfo(user)  
 
     const addRestaurantToListButton = document.querySelector('.add-restaurant-to-list-button')
 
@@ -273,11 +259,8 @@ function renderLists(listObj){
 }
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
-
-        
-  
     
-    restObj.forEach(restaurant => {
+      restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
         divCard.innerHTML = `
         <h3>${restaurant.name}</h3>
@@ -347,27 +330,9 @@ function renderRestaurantAPI(restObj, listID) {
         restaurantDiv.append(divCard)
 
     })
-    const updateForm = document.querySelector(".update-form-info")
-    updateForm.dataset.id = listObj.id
-
-    updateForm.addEventListener("submit", evt => {
-        evt.preventDefault()
-        const id = evt.target.dataset.id
-        
-        const updatedObj = {
-             title: evt.target.title.value,
-             description:  evt.target.description.value
-        }
-        updateListInfo(updatedObj, id)
-        
-    }) 
-    renderUserInfo(user)  
+    
     
 }
-
-// function renderSideBarDiv(user.lists) {
-    
-// }
 
 
 // Fetch functions
@@ -429,7 +394,7 @@ function updateListInfo(updatedObj,id) {
         },
         body: JSON.stringify(updatedObj)
     }).then(res => res.json())
-    .then(data => renderRestaurants(data))
+    .then(data => renderLists(data))
 }
 function renderUserInfo(user) {
     fetch(`http://localhost:3000/users/${user.id}`)
@@ -437,11 +402,6 @@ function renderUserInfo(user) {
     .then(user => setListDiv(user) )
 }
 
-// function renderUserInfo(user){
-//     fetch(`http://localhost:3000/user/${user.id}`)
-//     .then(res => res)
-//     .then(data => {console.log(data.list)}
-// }
 
 // const getOneRestaurant = id => {
 //     fetch(`http://localhost:3000/restaurants/${id}`)
