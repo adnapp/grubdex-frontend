@@ -1,4 +1,5 @@
 // Const
+const parentDiv = document.querySelector('.parent')
 const ullist = document.querySelector(".ul_list")
 const sideBarDiv = document.querySelector(".sidebarDiv")
 const restaurantDiv = document.querySelector(".restaurants-div")
@@ -17,33 +18,48 @@ let showLoginPage = () => {
     sideBarDiv.innerHTML= " "
     h3Title.innerText = " "
 
-    let loginForm = document.createElement('form')
-    loginForm.classList.add('centered')
+    restaurantDiv.innerHTML= `
+    <form action="/" class="login-form">
+    <header>Grubdex</header>
+    <div class="field"><span class="fa fa-user"></span><input type="text" id="name" placeholder="Enter Name"></div>
+    <input type="submit" class="submit" value="LOGIN"></input>`
 
-    let nameDiv = document.createElement('div')
-    nameDiv.className = "form-group"
-    let nameLabel = document.createElement('label')
-    nameLabel.htmlFor = "name"
-    nameLabel.innerText = "name"
+   const loginForm = document.querySelector('.login-form')
+   
+    // let loginForm = document.createElement('form')
+    // loginForm.classList.add('centered')
+    // loginForm.setAttribute("id", "login")
+
+    // let h1Welcome = document.createElement('h1')
+    // h1Welcome.classList.add("form-heading")
+    // h1Welcome.innerText = "Welcome to Grubdex"
+
+
+    // let nameDiv = document.createElement('div')
+    // nameDiv.className = "form__group"
+    // let nameLabel = document.createElement('label')
+    // nameLabel.className = "form__label"
+    // nameLabel.htmlFor = "name"
+    // nameLabel.innerText = "name"
     
 
-    let nameInput = document.createElement('input')
-    nameInput.type = "text"
-    nameInput.className = "input-block-level"
-    nameInput.id = "name"
-    nameInput.placeholder = "Enter Name"
-    nameInput.autocomplete = "off"
+    // let nameInput = document.createElement('input')
+    // nameInput.type = "text"
+    // nameInput.className = "input-block-level"
+    // nameInput.id = "name"
+    // nameInput.placeholder = "Enter Name"
+    // nameInput.autocomplete = "off"
 
-    nameDiv.append(nameLabel, nameInput)
+    // nameDiv.append(nameLabel, nameInput)
 
-    let submitButton = document.createElement('button')
-    submitButton.type = "submit"
-    submitButton.className = "btn btn-primary"
-    submitButton.innerText = "Login"
+    // let submitButton = document.createElement('button')
+    // submitButton.type = "submit"
+    // submitButton.className = "btn btn--large"
+    // submitButton.innerText = "Login"
 
-    loginForm.append(nameDiv, submitButton)
+    // loginForm.append(h1Welcome, nameDiv, submitButton)
 
-    restaurantDiv.append(loginForm)
+    // restaurantDiv.append(loginForm)
 
 
     loginForm.addEventListener("submit", handleLoginForm)
@@ -71,10 +87,14 @@ let showUserInformation = (user) => {
 // set usernameDiv After Login
 
 let setUsernameDiv = (user) => {
-    restaurantDiv.innerHTML = " "
+    restaurantDiv.innerHTML = 
+    `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
+    <img class='opening-image' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2583y6P6gdT2i49HFtbfUCyFMsDdwgSC7w&usqp=CAU >
+    <p class='txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
+
     nameDiv.innerHTML = " "
-    let h3NameTag = document.createElement('h3')
-    h3NameTag.innerText = `Welcome ${user.name}!`
+    let h3NameTag = document.createElement('h5')
+    h3NameTag.innerText = `${user.name}`
 
     let logOutButton = document.createElement('button')
     logOutButton.className = "btn btn-danger"
@@ -126,7 +146,9 @@ let setListDiv = (user) => {
   </form>`
     // console.log(user)
     user.lists.forEach(renderListLi)
+    // renderRestaurantsOnList(user.lists[0].restaurants, user.lists[0].AddRestaurantToLists)
     const createList = document.querySelector('.create-new-list-form')
+    
     createList.addEventListener('submit', function (event){
         const id = user.id
         event.preventDefault()
@@ -259,7 +281,7 @@ function renderLists(listObj){
 }
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
-    
+    debugger
     initMap()
     
     restObj.forEach((restaurant,index) => {
@@ -348,9 +370,7 @@ let handleRemoveButton = (evt) => {
         method: "DELETE"
     }).then(res => res.json())
     .then(data => getRestaurantsFromList(data.list_id))
-    // debugger
-    // we need to access the list id after object is deleted, to then render list again.
-    // getRestaurantsFromList(listid)
+   
 }
 
 
@@ -383,6 +403,8 @@ let handleLoginForm = (evt) => {
         if(returnedData.id) {
             user = returnedData
             showUserInformation(returnedData)
+            
+            
         } else {
             console.error(returnedData.error)
         }
@@ -452,8 +474,9 @@ function deleteListFunction(id)  {
             method: "DELETE"})
         .then(res => res.json())
         .then(data => {console.log(data)
-        })
-
+        }
+        )
+        
         // need to update the user.lists with the removed list and then render back on side bar
         
     }
