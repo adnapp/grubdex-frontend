@@ -206,9 +206,12 @@ function renderLists(listObj){
 
         rightDiv.innerHTML= `
         <br></br>
-        <button class="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
+        <button class = "btn btn-primary btn-sm" id="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
         <br></br>
-        <button class="delete-list-button" data-id = ${id} >Delete list</button>
+        <button class="btn btn-secondary btn-sm" id="delete-list-button" data-id = ${id} >Delete list</button>
+        <br></br>
+
+       
 
         <form class="form-control">
         <h5>Update List Info</h5>
@@ -226,10 +229,9 @@ function renderLists(listObj){
             class="form-control"
             id = "description"
             name="description"
-            rowd = "3"
-            value = ${listObj.description} 
+            rows = "2"  
             >
-               
+            ${listObj.description}
             </textarea>
         <br><br />
         <input
@@ -239,8 +241,10 @@ function renderLists(listObj){
           class="btn btn-primary btn-sm"
         />
         </div>
-        </form>`
-
+        </form>
+        
+        
+        `
 
         newDiv = document.createElement('div')
         newDiv.id = 'map'
@@ -248,7 +252,7 @@ function renderLists(listObj){
     
         // debugger
         renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
-        const deleteListButton = document.querySelector('.delete-list-button')
+        const deleteListButton = document.querySelector('#delete-list-button')
 
         deleteListButton.addEventListener("click", event => {
         const id = event.target.dataset.id
@@ -280,7 +284,7 @@ function renderLists(listObj){
     }) 
     renderUserInfo(user)  
 
-    const addRestaurantToListButton = document.querySelector('.add-restaurant-to-list-button')
+    const addRestaurantToListButton = document.querySelector('#add-restaurant-to-list-button')
 
     addRestaurantToListButton.addEventListener("click", event=> {
         restaurantDiv.innerHTML = ``
