@@ -24,7 +24,7 @@
     grid-auto-rows: minmax(100px, 100px);
     /* grid-template-rows: repeat(6, 1fr); */
     grid-column-gap: 0px;
-    grid-row-gap: 10px;
+    grid-row-gap: 0px;
     /* background-color: rgb(143, 202, 143); */
       
     }
@@ -36,8 +36,21 @@
       /* border: 0.5px solid; */
       /* border-color: darkgreen; */
       padding: 10px;
+      font-family: Rockwell;
+      color: rgb(21, 34, 146);
+      font-style: italic;
       /* box-shadow: 5px 10px darkgreen; */
       margin: 0;
+    }
+
+    .header-image {
+      height: 50px;
+      border-radius: 60px;
+      padding: 0;
+      vertical-align:20%;
+      border-style: solid;
+      border-color: darkblue;
+      /* position: center */
     }
 
     #map {
@@ -52,43 +65,85 @@
     .title {
       color: rgb(21, 34, 146);
       position: relative;
+      display: inline;
       font-size: 700%;
-      font-family:sans-serif;
+      font-family: Rockwell;
       font-weight: bolder;
+      font-style: normal;
       margin: 0;
     }
-    .usernameDiv { grid-area: 4 / 1 / 5 / 3;
-      /* background-color: rgba(15, 52, 107, 0.7) */
+    .before-login-usernameDiv { grid-area: 4 / 1 / 5 / 3;
+
+    }
+    .after-login-usernameDiv { grid-area: 4 / 1 / 5 / 3;
+      background-color: rgba(155, 192, 248, 0.7);
+      font-family: Rockwell;
+      color: rgb(21, 34, 146);
      }
-    .sidebarDiv { grid-area: 5 / 1 / 9 / 3; 
-      /* background-color: rgba(15, 52, 107, 0.7) !important; */
+
+    
+     .before-login-sidebarDiv { grid-area: 5 / 1 / 9 / 3; 
+      /* background-color: rgba(45, 91, 161, 0.7); */
     }
 
-    .restaurants-div { grid-area: 4 / 3 / 9 / 7;
+    .after-login-sidebarDiv { grid-area: 5 / 1 / 9 / 3; 
+      background-color: rgba(155, 192, 248, 0.7);
+      font-family: Rockwell;
+      color: rgb(21, 34, 146);
+    }
+
+    .btn-danger {
+      color: #fff;
+    background-color:  rgb(21, 34, 146);
+    border-color: lightblue;
+    }
+
+    /* h5 {
+      display: inline;
+    } */
+
+    .btn-danger:hover {
+      background-color: rgb(41, 57, 194);
+      border-color: lightblue
+    }
+
+    .before-login-restaurants-div { grid-area: 4 / 3 / 9 / 7;
       position: relative;
       overflow-x:hidden !important;
       overflow-y:auto;
-      background-color: rgba(15, 52, 107, 0.7)
       
     }
 
-    /* .container { 
-      width
+    .after-login-restaurants-div {
+      grid-area: 4 / 3 / 9 / 7;
+      position: relative;
+      overflow-x:hidden !important;
+      overflow-y:auto;
+      background-color: rgba(155, 192, 248, 0.7);
+      font-family: Rockwell;
+      color: rgb(21, 34, 146);
 
-    }  */
-
-    /* .restaurant-div-card {
-      background-color: rgba(15, 52, 107, 0.7);
-    } */
+    }
 
     .other-div { grid-area: 4 / 7 / 9 / 8; 
-      background-color: rgba(15, 52, 107, 0.7)
+      background-color: rgba(155, 192, 248, 0.7);
+      font-family: Rockwell;
+      color: rgb(21, 34, 146);
     }
 
     .opening-image {
       align-items: center;
       border-radius: 120px;
 
+    }
+
+    .opening-title {
+      text-shadow: 2px 2px white
+    }
+
+    .opening-text {
+      font-size: larger;
+      text-shadow: 2px 2px white
     }
 
     * {
@@ -128,6 +183,7 @@
       color: white;
       font-family: 'Montserrat',sans-serif;
       box-shadow: -4px 4px 12px 1px rgba(0,0,0,0.4);
+      border-radius: 30px;
     }
 
     .login-form header {
