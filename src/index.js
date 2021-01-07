@@ -11,8 +11,6 @@ var map
 
 
 
-
-
 // Render functions
 
 let showLoginPage = () => {
@@ -226,9 +224,6 @@ function renderLists(listObj){
         // restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
         
     })
-    
-
-    
 
     const updateForm = document.querySelector(".update-form-info")
     updateForm.dataset.id = listObj.id
@@ -252,13 +247,11 @@ function renderLists(listObj){
         restaurantDiv.innerHTML = ``
         
         listID = event.target.dataset.id
-        //let's list out all restaurants in db.. fetch
 
         const data = { username: 'example' };
 
         fetch(`http://localhost:3000/restaurants/`)
         .then(resp => resp.json())
-        // .then(allRestaurantObj => renderLists(allRestaurantObj))
         .then(restaurantListObj => renderRestaurantAPI(restaurantListObj, listID))     
     })
 
@@ -267,15 +260,13 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
-    // debugger
     initMap()
-
-    // const counter = 1
-    restObj.forEach(restaurant => {
-        
+    
+    restObj.forEach((restaurant,index) => {
+         index = (index + 1).toString()
         const divCard = document.createElement('div')
         divCard.innerHTML = `
-        <h3>{counter} ${restaurant.name}</h3>
+        <h3>${index}. ${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
         <img src=${restaurant.image_url} width="200" height="200">
@@ -291,31 +282,20 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         addRestToListsObj.filter(item => {
             if (item.restaurant_id === restid)
             removeBtn.dataset.id = item.id
-            // console.log(removeBtn.dataset.id)
         })
-
-        // const lat = restaurant.lat 
-        // const lng = restaurant.lng
         const pos = {lat: parseFloat(restaurant.lat), lng: parseFloat(restaurant.lng)}
-        // debugger
         const marker = new google.maps.Marker({
             position: pos,
             map: map,
-            label: restaurant.name
+            label: index
           });
 
-        //need to add an 'if exists' (maybe)
         const listID = addRestToListsObj[0].list_id
 
-        // debugger
         removeBtn.dataset.listid = listID
         removeBtn.addEventListener("click", handleRemoveButton )
-
         restaurantDiv.append(divCard)
-        // counter = counter +1
     })
-    //above, create an array of all the lat/long data
-    // call the map function and append it to the top
 }
 
 function renderRestaurantAPI(restObj, listID) {
@@ -342,12 +322,8 @@ function renderRestaurantAPI(restObj, listID) {
         addBtn.addEventListener("click", evt=> {
             let restaurantID = evt.target.dataset.id;
             //  listID is here
-// debugger
             addRestaurantToListFetch(restaurantID, listID)
             
-            // debugger
-
-
             //in here, i want to have the listid, and restaurant id
         //then create Addrestauranttolist
         //then reload restaurant list for this list
@@ -358,8 +334,6 @@ function renderRestaurantAPI(restObj, listID) {
         restaurantDiv.append(divCard)
 
     })
-    
-    
 }
 
 
@@ -492,36 +466,17 @@ ullist.addEventListener("click", evt => {
 })
 
 
-
-//add map
-
+//initialize map
 function initMap() {
-    // debugger
-
 
     // The location of nyc
     const nyc = { lat: 40.731, lng: -73.935 };
-    const nyc2 = { lat: 40.751, lng: -73.935 };
-    const nyc3 = { lat: 40.751, lng: -73.975 };
-
-    // The map, centered at Uluru
+ 
+    // The map, centered at NYC
      map = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
       center: nyc,
     });
-    // The marker, positioned at Uluru
-    // const marker = new google.maps.Marker({
-    //   position: nyc,
-    //   map: map,
-    // });
-    // const marker2 = new google.maps.Marker({
-    //     position: nyc2,
-    //     map: map,
-    //   });
-    // const marker3 = new google.maps.Marker({
-    //     position: nyc3,
-    //     map: map,
-    //   });
   }
 
 
