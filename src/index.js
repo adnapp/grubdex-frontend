@@ -7,15 +7,15 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
 var user = {}
-var map
+// var map = 
 
 
 
 // Render functions
 
 let showLoginPage = () => {
-    sideBarDiv.innerHTML= "Login in to see your lists!"
-    h3Title.innerText = "Enter your name below to see your Lists:"
+    sideBarDiv.innerHTML= " "
+    h3Title.innerText = " "
 
     let loginForm = document.createElement('form')
     loginForm.classList.add('centered')
@@ -29,7 +29,7 @@ let showLoginPage = () => {
 
     let nameInput = document.createElement('input')
     nameInput.type = "text"
-    nameInput.className = "form-control"
+    nameInput.className = "input-block-level"
     nameInput.id = "name"
     nameInput.placeholder = "Enter Name"
     nameInput.autocomplete = "off"
@@ -451,7 +451,10 @@ function deleteListFunction(id)  {
     fetch(`http://localhost:3000/lists/${id}`, {
             method: "DELETE"})
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {console.log(data)
+        })
+
+        // need to update the user.lists with the removed list and then render back on side bar
         
     }
 
