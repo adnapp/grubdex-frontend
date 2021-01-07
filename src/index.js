@@ -125,7 +125,7 @@ let setListDiv = (user) => {
       class="submit"
     />
   </form>`
-    console.log(user)
+    // console.log(user)
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
@@ -159,13 +159,13 @@ let setListDiv = (user) => {
 }
 
 let renderListLi = (list) => {
+    const li = document.createElement('li')
     
-        const li = document.createElement('li')
-
-        li.textContent = list.title
-        li.dataset.id = list.id
-        ullist.append(li)
-        sideBarDiv.append(ullist)
+    li.textContent = list.title
+    li.dataset.id = list.id
+    ullist.append(li)
+    sideBarDiv.append(ullist)
+    // debugger
 }
 //render all restaurants on main div
 function renderLists(listObj){
@@ -320,7 +320,7 @@ function renderRestaurantAPI(restObj, listID) {
         addBtn.addEventListener("click", evt=> {
             let restaurantID = evt.target.dataset.id;
             //  listID is here
-
+// debugger
             addRestaurantToListFetch(restaurantID, listID)
             
             // debugger
@@ -347,12 +347,11 @@ function renderRestaurantAPI(restObj, listID) {
 let handleRemoveButton = (evt) => {
     evt.preventDefault()
     const id = evt.target.dataset.id
-    // console.log(id)
 
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
-    }).then(res => res.json())
-    .then(renderListLi)
+    })
+   
 }
 
 
@@ -443,8 +442,10 @@ function addRestaurantToListFetch(restaurantID, listID) {
     body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(console.log)
-    debugger
+    .then(data => console.log(data))
+    // debugger
+
+    
     //we want to refresh restaurant page here, but we do not have an objj
     //we only have the ID.
     //our existing func uses the obj to generate.. should we create new
