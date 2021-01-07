@@ -24,7 +24,7 @@
     grid-auto-rows: minmax(100px, 100px);
     /* grid-template-rows: repeat(6, 1fr); */
     grid-column-gap: 0px;
-    grid-row-gap: 10px;
+    grid-row-gap: 00px;
     /* background-color: rgb(143, 202, 143); */
       
     }
@@ -46,6 +46,7 @@
       width: 100%;
       /* The width is the width of the web page */
     }
+    
 
     
 
@@ -58,10 +59,13 @@
       margin: 0;
     }
     .usernameDiv { grid-area: 4 / 1 / 5 / 3;
-      /* background-color: rgba(15, 52, 107, 0.7) */
+      background-color: rgba(15, 52, 107, 0.7);
+      padding-left: 10px;
+
      }
     .sidebarDiv { grid-area: 5 / 1 / 9 / 3; 
-      /* background-color: rgba(15, 52, 107, 0.7) !important; */
+      background-color: rgba(15, 52, 107, 0.7) !important;
+      padding-left: 10px;
     }
 
     .restaurants-div { grid-area: 4 / 3 / 9 / 7;

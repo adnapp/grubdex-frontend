@@ -143,7 +143,7 @@ let setListDiv = (user) => {
       type="submit"
       name="submit"
       value="Create New List"
-      class="submit"
+      class="btn btn-primary btn-sm"
     />
   </form>`
    
@@ -203,26 +203,35 @@ function renderLists(listObj){
         <br></br>
         <button class="delete-list-button" data-id = ${id} >Delete list</button>
 
-        <form class="update-form-info">
-        <h4>Update List Info</h4>
-        <input
-          type="text"
-          name="title"
-          value= ${listObj.title}
-          class="input-text"
+        <form class="form-control">
+        <h5>Update List Info</h5>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input
+            type="text"
+            class="form-control"
+            id="title"
+            value= ${listObj.title}
         />
         <br><br />
-        <textarea
-          name="description">
-          ${listObj.description}    
-          </textarea>
+        <label for="description">Description:</label>
+            <textarea
+            class="form-control"
+            id = "description"
+            name="description"
+            rowd = "3"
+            value = ${listObj.description} 
+            >
+               
+            </textarea>
         <br><br />
         <input
           type="submit"
           name="submit"
           value="Update List"
-          class="submit"
+          class="btn btn-primary btn-sm"
         />
+        </div>
         </form>`
 
 
@@ -248,7 +257,7 @@ function renderLists(listObj){
         rightDiv.innerHTML = ``
     })
 
-    const updateForm = document.querySelector(".update-form-info")
+    const updateForm = document.querySelector(".form-control")
     updateForm.dataset.id = listObj.id
 
     updateForm.addEventListener("submit", evt => {
