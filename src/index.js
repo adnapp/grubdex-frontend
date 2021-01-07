@@ -171,7 +171,7 @@ let renderListLi = (list) => {
 function renderLists(listObj){
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
-    
+    // debugger
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
         <p>${listObj.description}</p>`
@@ -209,7 +209,7 @@ function renderLists(listObj){
         newDiv.innerHTML = `<p>Map will go here</p>`
         restaurantDiv.appendChild(newDiv)
     
-        debugger
+        // debugger
     renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
     const deleteListButton = document.querySelector('.delete-list-button')
 
@@ -265,7 +265,7 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
-
+// debugger
 
       restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
@@ -288,7 +288,13 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
             removeBtn.dataset.id = item.id
             // console.log(removeBtn.dataset.id)
         }
-            )
+        )
+
+        //need to add an 'if exists' (maybe)
+        const listID = addRestToListsObj[0].list_id
+
+        // debugger
+        removeBtn.dataset.listid = listID
         removeBtn.addEventListener("click", handleRemoveButton )
 
         restaurantDiv.append(divCard)
@@ -348,20 +354,19 @@ function renderRestaurantAPI(restObj, listID) {
 let handleRemoveButton = (evt) => {
     evt.preventDefault()
     const id = evt.target.dataset.id
-
+    const listid = evt.target.dataset.listid
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
-    }).then(res => res.json())
-    .then(data => console.log(data))
-    debugger
+    })
+    // debugger
     // we need to access the list id after object is deleted, to then render list again.
-
+    getRestaurantsFromList(listid)
 }
 
 
 //coming from render restaurant API at bottoom event listener
 let handleAddRestaurantToListButton = (evt) => {
-    debugger
+    // debugger
 
     //in here, i want to have the listid, and restaurant id
     //then create Addrestauranttolist
