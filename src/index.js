@@ -120,11 +120,15 @@ let setListDiv = (user) => {
     // debugger
     sideBarDiv.innerHTML = " "
 
+    // debugger
+    if (!user.lists[0]) {
+        userHasNoLists()
+    }
     ullist.innerHTML = "<h6>Current Lists</h6>"
     user.lists.forEach(renderListLi)
 
-    newDiv = document.createElement('div')
 
+    newDiv = document.createElement('div')
     newDiv.innerHTML = `
     <br><br />
     <form class="create-new-list-form">
@@ -380,11 +384,17 @@ let removeListFromList = (id) => {
 }
 
 let addListToList = (list) => {
+    // debugger
+    //if ul doesnt exist, creat it/
     let ulList = document.querySelector('.ul_list')
     li = document.createElement('li')
     li.textContent = list.title
     li.dataset.id = list.id 
     ulList.appendChild(li)
+}
+
+let userHasNoLists = (input) => {
+    // debugger
 }
 
 // Fetch functions
