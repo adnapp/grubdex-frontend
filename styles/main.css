@@ -98,6 +98,12 @@
     border-color: lightblue;
     }
 
+    .btn-primary {
+      background-color: rgba(31, 231, 74, 0.7) !important;
+      border: none;
+
+    }
+
     /* h5 {
       display: inline;
     } */
@@ -105,6 +111,18 @@
     .btn-danger:hover {
       background-color: rgb(41, 57, 194);
       border-color: lightblue
+    }
+
+    /* new list button only */
+   /* .new-list {
+      width: 40% !important;
+      font-size: medium !important; */
+      
+
+    }
+
+    .input-text, .input-area {
+      border-radius: 30px;
     }
 
     .before-login-restaurants-div { grid-area: 4 / 3 / 9 / 7;
@@ -122,6 +140,18 @@
       background-color: rgba(155, 192, 248, 0.7);
       font-family: Rockwell;
       color: rgb(21, 34, 146);
+
+    }
+
+    /* .restaurant-name {
+      display: inline;
+    } */
+
+    .restaurant-image {
+      vertical-align: top;
+      /* border: solid;
+      border-width: 10; */
+      /* border-color: rgb(21, 34, 146); */
 
     }
 
@@ -213,7 +243,7 @@
         height: 45px;
         font-size: 1.1rem;
         padding: 5px;
-        color: #34495e;
+        color: rgba(15, 52, 107, 0.7);
         border: none;
         
       }
@@ -236,14 +266,16 @@
           font-family: 'Poppins',sans-serif;
           font-size: 1.2rem;
           color: #fff;
-          background-color: #0074D9;
+          background-color: rgba(31, 231, 74, 0.7);
           border: none;
+          border-radius: 20px;
+
           transition: all 0.1s linear;
         }
 
         .submit:hover {
           cursor: pointer;
-          background-color: #0070d1;
+          background-color: rgba(105, 243, 135, 0.7);
        }
     
     

@@ -146,7 +146,7 @@ let setListDiv = (user) => {
       type="submit"
       name="submit"
       value="Create New List"
-      class="submit"
+      class="btn btn-primary btn-small"
     />
   </form>`
    
@@ -224,7 +224,7 @@ function renderLists(listObj){
           type="submit"
           name="submit"
           value="Update List"
-          class="submit"
+          class="btn btn-primary btn-small"
         />
         </form>`
 
@@ -300,10 +300,10 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         const divCard = document.createElement('div')
         divCard.className = "container"
         divCard.innerHTML = `
-        <h3>${index}. ${restaurant.name}</h3>
+        <h3 class= restaurant-name>${index}. ${restaurant.name}</h3>
+        <img class= restaurant-image src=${restaurant.image_url} width="150" height="150">
         <h4>${restaurant.cuisine}</h4>
-        <h4>${restaurant.address}</h4>
-        <img src=${restaurant.image_url} width="200" height="200">
+        <h4 class= restaurant-address>${restaurant.address}</h4>
         <br></br>
 
         <a href="${restaurant.website_url}" >Website</a>
