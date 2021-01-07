@@ -59,6 +59,7 @@
       width: 100%;
       /* The width is the width of the web page */
     }
+    
 
     
 
@@ -119,7 +120,7 @@
       font-size: medium !important; */
       
 
-    }
+    
 
     .input-text, .input-area {
       border-radius: 30px;

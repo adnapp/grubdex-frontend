@@ -117,11 +117,15 @@ let setListDiv = (user) => {
     sideBarDiv.innerHTML = " "
     sideBarDiv.className = "after-login-sidebarDiv"
 
+    // debugger
+    if (!user.lists[0]) {
+        userHasNoLists()
+    }
     ullist.innerHTML = "<h6>Current Lists</h6>"
     user.lists.forEach(renderListLi)
 
-    newDiv = document.createElement('div')
 
+    newDiv = document.createElement('div')
     newDiv.innerHTML = `
     <br><br />
     <form class="create-new-list-form">
@@ -146,7 +150,7 @@ let setListDiv = (user) => {
       type="submit"
       name="submit"
       value="Create New List"
-      class="btn btn-primary btn-small"
+      class="btn btn-primary btn-sm"
     />
   </form>`
    
@@ -202,32 +206,45 @@ function renderLists(listObj){
 
         rightDiv.innerHTML= `
         <br></br>
-        <button class="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
+        <button class = "btn btn-primary btn-sm" id="add-restaurant-to-list-button" data-id = ${id} >Add Restaurant</button>
         <br></br>
-        <button class="delete-list-button" data-id = ${id} >Delete list</button>
+        <button class="btn btn-secondary btn-sm" id="delete-list-button" data-id = ${id} >Delete list</button>
+        <br></br>
 
-        <form class="update-form-info">
-        <h4>Update List Info</h4>
-        <input
-          type="text"
-          name="title"
-          value= ${listObj.title}
-          class="input-text"
+       
+
+        <form class="form-control">
+        <h5>Update List Info</h5>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input
+            type="text"
+            class="form-control"
+            id="title"
+            value= ${listObj.title}
         />
         <br><br />
-        <textarea
-          name="description">
-          ${listObj.description}    
-          </textarea>
+        <label for="description">Description:</label>
+            <textarea
+            class="form-control"
+            id = "description"
+            name="description"
+            rows = "2"  
+            >
+            ${listObj.description}
+            </textarea>
         <br><br />
         <input
           type="submit"
           name="submit"
           value="Update List"
-          class="btn btn-primary btn-small"
+          class="btn btn-primary btn-sm"
         />
-        </form>`
-
+        </div>
+        </form>
+        
+        
+        `
 
         newDiv = document.createElement('div')
         newDiv.id = 'map'
@@ -235,7 +252,7 @@ function renderLists(listObj){
     
         // debugger
         renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
-        const deleteListButton = document.querySelector('.delete-list-button')
+        const deleteListButton = document.querySelector('#delete-list-button')
 
         deleteListButton.addEventListener("click", event => {
         const id = event.target.dataset.id
@@ -251,7 +268,7 @@ function renderLists(listObj){
         rightDiv.innerHTML = ``
     })
 
-    const updateForm = document.querySelector(".update-form-info")
+    const updateForm = document.querySelector(".form-control")
     updateForm.dataset.id = listObj.id
 
     updateForm.addEventListener("submit", evt => {
@@ -267,7 +284,7 @@ function renderLists(listObj){
     }) 
     renderUserInfo(user)  
 
-    const addRestaurantToListButton = document.querySelector('.add-restaurant-to-list-button')
+    const addRestaurantToListButton = document.querySelector('#add-restaurant-to-list-button')
 
     addRestaurantToListButton.addEventListener("click", event=> {
         restaurantDiv.innerHTML = ``
@@ -393,11 +410,17 @@ let removeListFromList = (id) => {
 }
 
 let addListToList = (list) => {
+    // debugger
+    //if ul doesnt exist, creat it/
     let ulList = document.querySelector('.ul_list')
     li = document.createElement('li')
     li.textContent = list.title
     li.dataset.id = list.id 
     ulList.appendChild(li)
+}
+
+let userHasNoLists = (input) => {
+    // debugger
 }
 
 // Fetch functions
