@@ -125,7 +125,7 @@ let setListDiv = (user) => {
       class="submit"
     />
   </form>`
-    console.log(user)
+    // console.log(user)
     user.lists.forEach(renderListLi)
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
@@ -159,19 +159,19 @@ let setListDiv = (user) => {
 }
 
 let renderListLi = (list) => {
+    const li = document.createElement('li')
     
-        const li = document.createElement('li')
-
-        li.textContent = list.title
-        li.dataset.id = list.id
-        ullist.append(li)
-        sideBarDiv.append(ullist)
+    li.textContent = list.title
+    li.dataset.id = list.id
+    ullist.append(li)
+    sideBarDiv.append(ullist)
+    // debugger
 }
 //render all restaurants on main div
 function renderLists(listObj){
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
-    
+    // debugger
     restaurantDiv.innerHTML = `
         <h3> ${listObj.title} </h3>
         <p>${listObj.description}</p>`
@@ -203,9 +203,14 @@ function renderLists(listObj){
           class="submit"
         />
         </form>`
+
+
+        newDiv = document.createElement('div')
+        newDiv.innerHTML = `<p>Map will go here</p>`
+        restaurantDiv.appendChild(newDiv)
     
+        // debugger
     renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
-    
     const deleteListButton = document.querySelector('.delete-list-button')
 
     deleteListButton.addEventListener("click", event => {
@@ -260,6 +265,8 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
+// debugger
+
       restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
         divCard.innerHTML = `
@@ -281,18 +288,14 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
             removeBtn.dataset.id = item.id
             // console.log(removeBtn.dataset.id)
         }
-            )
-        removeBtn.addEventListener("click", evt => {
-            evt.preventDefault()
-            const id = evt.target.dataset.id
-            fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
-                    method: "DELETE"
-                })
-                // debugger
+        )
 
-            
-        })
-        
+        //need to add an 'if exists' (maybe)
+        const listID = addRestToListsObj[0].list_id
+
+        // debugger
+        removeBtn.dataset.listid = listID
+        removeBtn.addEventListener("click", handleRemoveButton )
 
         restaurantDiv.append(divCard)
         
@@ -317,14 +320,14 @@ function renderRestaurantAPI(restObj, listID) {
 
         <a href="${restaurant.website_url}" >Website</a>
         <br></br>
-        <button class="add-restaurant-to-list-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
+        <button class="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
         `
-        const addBtn = divCard.querySelector('.add-restaurant-to-list-button')
+        const addBtn = divCard.querySelector('.add-restaurant-button')
         // debugger
         addBtn.addEventListener("click", evt=> {
             let restaurantID = evt.target.dataset.id;
             //  listID is here
-
+// debugger
             addRestaurantToListFetch(restaurantID, listID)
             
             // debugger
@@ -347,23 +350,23 @@ function renderRestaurantAPI(restObj, listID) {
 
 // Fetch functions
 
-// removes restaurant from a list -- need to add render
-// let handleRemoveButton = (evt) => {
-//     evt.preventDefault()
-//     const id = evt.target.dataset.id
-//     // console.log(id)
-
-//     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
-//         method: "DELETE"
-//     })
+//removes restaurant from a list -- need to add render
+let handleRemoveButton = (evt) => {
+    evt.preventDefault()
+    const id = evt.target.dataset.id
+    const listid = evt.target.dataset.listid
+    fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
+        method: "DELETE"
+    })
+    // debugger
     // we need to access the list id after object is deleted, to then render list again.
-
-// }
+    getRestaurantsFromList(listid)
+}
 
 
 //coming from render restaurant API at bottoom event listener
 let handleAddRestaurantToListButton = (evt) => {
-    debugger
+    // debugger
 
     //in here, i want to have the listid, and restaurant id
     //then create Addrestauranttolist
