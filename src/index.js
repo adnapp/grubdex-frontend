@@ -1,12 +1,12 @@
 // Const
 const parentDiv = document.querySelector('.parent')
 const ullist = document.querySelector(".ul_list")
-const sideBarDiv = document.querySelector(".sidebarDiv")
-const restaurantDiv = document.querySelector(".restaurants-div")
+const sideBarDiv = document.querySelector(".before-login-sidebarDiv")
+const restaurantDiv = document.querySelector(".before-login-restaurants-div")
 const rightDiv = document.querySelector(".other-div")
 const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
-const nameDiv = document.querySelector(".usernameDiv")
+const nameDiv = document.querySelector(".before-login-usernameDiv")
 const body = document.querySelector("body")
 var user = {}
 // var map = 
@@ -81,13 +81,15 @@ let setUsernameDiv = (user) => {
     `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
     <img class='opening-image' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2583y6P6gdT2i49HFtbfUCyFMsDdwgSC7w&usqp=CAU >
     <p class='txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
+    restaurantDiv.className = "after-login-restaurants-div"
 
     nameDiv.innerHTML = " "
-    let h3NameTag = document.createElement('h5')
+    nameDiv.className = "after-login-usernameDiv"
+    let h3NameTag = document.createElement('h3')
     h3NameTag.innerText = `${user.name}`
 
     let logOutButton = document.createElement('button')
-    logOutButton.className = "btn btn-danger"
+    logOutButton.className = "btn btn-danger btn-sm"
     logOutButton.innerText = "Logout"
 
     nameDiv.append(h3NameTag, logOutButton)
@@ -99,8 +101,12 @@ let setUsernameDiv = (user) => {
 
 let logOut = () => {
     nameDiv.innerHTML = " "
+    nameDiv.className = "before-login-usernameDiv"
     sideBarDiv.innerHTML = " "
+    sideBarDiv.className = "before-login-sidebarDiv"
     restaurantDiv.innerHTML = " "
+    restaurantDiv.className = "before-login-restaurants-div"
+    rightDiv.innerHTML=" "
     showLoginPage()
 }
 
@@ -109,6 +115,7 @@ let logOut = () => {
 let setListDiv = (user) => {
     // debugger
     sideBarDiv.innerHTML = " "
+    sideBarDiv.className = "after-login-sidebarDiv"
 
     // debugger
     if (!user.lists[0]) {
@@ -341,8 +348,18 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
 function renderRestaurantAPI(restObj, listID) {
 
     restaurantDiv.innerHTML = `
-    <h3> Select Restaurant to Add to list...</h3>
+    <h3> Choose A Restaurant From the List:</h3>
     <br></br>`
+
+    // const searchForm = document.querySelector('.form-inline')
+    // const searchBtn =  searchForm.querySelector('.btn')
+    // searchForm.addEventListener('submit', evt => {
+    //     evt .stopImmediatePropagation()
+    // debugger
+    // console.log(evt)
+
+
+    // })      
     // debugger
     restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
@@ -374,6 +391,11 @@ function renderRestaurantAPI(restObj, listID) {
         restaurantDiv.append(divCard)
 
     })
+}
+
+let searchRestaurantAPI = () => { 
+   
+
 }
 
 let removeListFromList = (id) => {
