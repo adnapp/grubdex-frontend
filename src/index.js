@@ -7,6 +7,7 @@ const rightDiv = document.querySelector(".other-div")
 const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
+const body = document.querySelector("body")
 var user = {}
 // var map = 
 
@@ -65,21 +66,10 @@ let showLoginPage = () => {
     loginForm.addEventListener("submit", handleLoginForm)
 
 }
-// making login pop up box
-// function openLoginForm(){
-//     document.body.classList.add("showLoginForm")
-//     const loginForm = document.querySelector(".form")
-//     loginButton = loginForm.querySelector('button')
-//     loginButton.addEventListener('click', evt => {
-//         console.log(evt)
 
-//     })
-//   }
-//   function closeLoginForm(){
-//     document.body.classList.remove("showLoginForm");
-//   }
 
 let showUserInformation = (user) => {
+    // body.className = "after-login"
     setUsernameDiv(user)
     setListDiv(user)
 }
@@ -305,6 +295,7 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
     restObj.forEach((restaurant,index) => {
         index = (index + 1).toString()
         const divCard = document.createElement('div')
+        divCard.className = "container"
         divCard.innerHTML = `
         <h3>${index}. ${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
@@ -444,6 +435,8 @@ let handleLoginForm = (evt) => {
             
         } else {
             console.error(returnedData.error)
+            // how to render error:
+            // sideBarDiv.innerHTML = `${returnedData.error}`
         }
     })  
 }
