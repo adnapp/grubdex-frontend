@@ -282,7 +282,17 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
             // console.log(removeBtn.dataset.id)
         }
             )
-        removeBtn.addEventListener("click", handleRemoveButton )
+        removeBtn.addEventListener("click", evt => {
+            evt.preventDefault()
+            const id = evt.target.dataset.id
+            fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
+                    method: "DELETE"
+                })
+                // debugger
+
+            
+        })
+        
 
         restaurantDiv.append(divCard)
         
@@ -337,20 +347,18 @@ function renderRestaurantAPI(restObj, listID) {
 
 // Fetch functions
 
-//removes restaurant from a list -- need to add render
-let handleRemoveButton = (evt) => {
-    evt.preventDefault()
-    const id = evt.target.dataset.id
-    // console.log(id)
+// removes restaurant from a list -- need to add render
+// let handleRemoveButton = (evt) => {
+//     evt.preventDefault()
+//     const id = evt.target.dataset.id
+//     // console.log(id)
 
-    fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
-        method: "DELETE"
-    }).then(res => res.json())
-    .then(data => console.log(data))
-    debugger
+//     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
+//         method: "DELETE"
+//     })
     // we need to access the list id after object is deleted, to then render list again.
 
-}
+// }
 
 
 //coming from render restaurant API at bottoom event listener
@@ -459,7 +467,8 @@ function deleteListFunction(id)  {
 
 ullist.addEventListener("click", evt => {
     evt.preventDefault()
-    const id = evt.target.dataset.id 
+    const id = evt.target.dataset.id
+     
     getRestaurantsFromList(id)
 })
 
