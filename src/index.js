@@ -98,9 +98,17 @@ let logOut = () => {
 //this loads the list div on the left after login
 let setListDiv = (user) => {
     // debugger
-    ullist.innerHTML = " "
-    sideBarDiv.innerHTML = `<form class="create-new-list-form">
-    <h3>Create a new list</h3>
+    sideBarDiv.innerHTML = " "
+
+    ullist.innerHTML = "<h6>Current Lists</h6>"
+    user.lists.forEach(renderListLi)
+
+    newDiv = document.createElement('div')
+
+    newDiv.innerHTML = `
+    <br><br />
+    <form class="create-new-list-form">
+    <h5>Create a new list</h5>
     <input
       type="text"
       name="title"
@@ -124,13 +132,13 @@ let setListDiv = (user) => {
       class="submit"
     />
   </form>`
-    // console.log(user)
-    user.lists.forEach(renderListLi)
+   
+  sideBarDiv.append(newDiv)
+    
     const createList = document.querySelector('.create-new-list-form')
     createList.addEventListener('submit', function (event){
         const id = user.id
         event.preventDefault()
-    
     
         const newListObj = {
             title: event.target.title.value, 
@@ -150,9 +158,8 @@ let setListDiv = (user) => {
     
         fetch('http://localhost:3000/lists', config)
         .then(resp => resp.json())
-        .then(list => renderListLi(list),
-        // How do I then get this to add to the page with all the details?
-        )
+        .then(list => addListToList(list))
+
         event.target.reset()
     })
 }
@@ -164,9 +171,9 @@ let renderListLi = (list) => {
     li.dataset.id = list.id
     ullist.append(li)
     sideBarDiv.append(ullist)
-    // debugger
 }
-//render all restaurants on main div
+
+//renders all restaurants on main div
 function renderLists(listObj){
     // restaurantCollection = document.querySelector('.restaurantsDiv')
      const id = listObj.id
@@ -206,7 +213,6 @@ function renderLists(listObj){
 
         newDiv = document.createElement('div')
         newDiv.id = 'map'
-        newDiv.innerHTML = `<p>Map will go here</p>`
         restaurantDiv.appendChild(newDiv)
     
         // debugger
@@ -218,11 +224,13 @@ function renderLists(listObj){
         console.log(id)
 
         deleteListFunction(id)  
-        // debugger
-        // console.log(user.lists)
-        // setListDiv(user.lists)
-        // restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
+
+        removeListFromList(id)
+
+        //reroute to screen where it clears divs and asks to select another list
         
+        restaurantDiv.innerHTML = 'Select new list';        
+        rightDiv.innerHTML = ``
     })
 
     const updateForm = document.querySelector(".update-form-info")
@@ -260,10 +268,17 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
-    initMap()
+    // debugger
+    if (restObj[0]){
+        initMap()
+    } else  {
+        const divCard = document.createElement('div')
+        divCard.innerHTML = `<h3>add some restaurants to this list!</h3>`
+        restaurantDiv.append(divCard)
+    }
     
     restObj.forEach((restaurant,index) => {
-         index = (index + 1).toString()
+        index = (index + 1).toString()
         const divCard = document.createElement('div')
         divCard.innerHTML = `
         <h3>${index}. ${restaurant.name}</h3>
@@ -336,6 +351,20 @@ function renderRestaurantAPI(restObj, listID) {
     })
 }
 
+let removeListFromList = (id) => {
+    let ulList = document.querySelector('.ul_list').children
+    let spreaded = [...ulList]
+    let toRemove =spreaded.find(item => item.dataset.id == id)
+    toRemove.remove()
+}
+
+let addListToList = (list) => {
+    let ulList = document.querySelector('.ul_list')
+    li = document.createElement('li')
+    li.textContent = list.title
+    li.dataset.id = list.id 
+    ulList.appendChild(li)
+}
 
 // Fetch functions
 
@@ -348,9 +377,6 @@ let handleRemoveButton = (evt) => {
         method: "DELETE"
     }).then(res => res.json())
     .then(data => getRestaurantsFromList(data.list_id))
-    // debugger
-    // we need to access the list id after object is deleted, to then render list again.
-    // getRestaurantsFromList(listid)
 }
 
 
@@ -447,15 +473,13 @@ function addRestaurantToListFetch(restaurantID, listID) {
 
 }
 
+//fetch Deletes a list and clears it from the left hand div
 function deleteListFunction(id)  {
     fetch(`http://localhost:3000/lists/${id}`, {
             method: "DELETE"})
         .then(res => res.json())
         .then(data => {console.log(data)
         })
-
-        // need to update the user.lists with the removed list and then render back on side bar
-        
     }
 
 
