@@ -218,9 +218,9 @@ function renderLists(listObj){
         console.log(id)
 
         deleteListFunction(id)  
-        debugger
-        console.log(user.lists)
-        setListDiv(user.lists)
+        // debugger
+        // console.log(user.lists)
+        // setListDiv(user.lists)
         // restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
         
     })
@@ -357,10 +357,11 @@ let handleRemoveButton = (evt) => {
     const listid = evt.target.dataset.listid
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
-    })
+    }).then(res => res.json())
+    .then(data => getRestaurantsFromList(data.list_id))
     // debugger
     // we need to access the list id after object is deleted, to then render list again.
-    getRestaurantsFromList(listid)
+    // getRestaurantsFromList(listid)
 }
 
 
@@ -460,8 +461,8 @@ function addRestaurantToListFetch(restaurantID, listID) {
 function deleteListFunction(id)  {
     fetch(`http://localhost:3000/lists/${id}`, {
             method: "DELETE"})
-        // .then(res => res.json())
-        // .then(data => console.log(data))
+        .then(res => res.json())
+        .then(data => console.log(data))
         
     }
 
