@@ -7,7 +7,7 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
 var user = {}
-var map
+// var map = 
 
 
 
