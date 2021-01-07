@@ -7,6 +7,7 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".usernameDiv")
 var user = {}
+var map
 
 
 
@@ -206,14 +207,15 @@ function renderLists(listObj){
 
 
         newDiv = document.createElement('div')
+        newDiv.id = 'map'
         newDiv.innerHTML = `<p>Map will go here</p>`
         restaurantDiv.appendChild(newDiv)
     
         // debugger
-    renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
-    const deleteListButton = document.querySelector('.delete-list-button')
+        renderRestaurantsOnList(listObj.restaurants, listObj.AddRestaurantToLists)
+        const deleteListButton = document.querySelector('.delete-list-button')
 
-    deleteListButton.addEventListener("click", event => {
+        deleteListButton.addEventListener("click", event => {
         const id = event.target.dataset.id
         console.log(id)
 
@@ -265,12 +267,15 @@ function renderLists(listObj){
 
 function renderRestaurantsOnList(restObj,addRestToListsObj) {
     
-// debugger
+    // debugger
+    initMap()
 
-      restObj.forEach(restaurant => {
+    // const counter = 1
+    restObj.forEach(restaurant => {
+        
         const divCard = document.createElement('div')
         divCard.innerHTML = `
-        <h3>${restaurant.name}</h3>
+        <h3>{counter} ${restaurant.name}</h3>
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
         <img src=${restaurant.image_url} width="200" height="200">
@@ -287,8 +292,17 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
             if (item.restaurant_id === restid)
             removeBtn.dataset.id = item.id
             // console.log(removeBtn.dataset.id)
-        }
-        )
+        })
+
+        // const lat = restaurant.lat 
+        // const lng = restaurant.lng
+        const pos = {lat: parseFloat(restaurant.lat), lng: parseFloat(restaurant.lng)}
+        // debugger
+        const marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            label: restaurant.name
+          });
 
         //need to add an 'if exists' (maybe)
         const listID = addRestToListsObj[0].list_id
@@ -298,9 +312,10 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         removeBtn.addEventListener("click", handleRemoveButton )
 
         restaurantDiv.append(divCard)
-        
+        // counter = counter +1
     })
-    // debugger
+    //above, create an array of all the lat/long data
+    // call the map function and append it to the top
 }
 
 function renderRestaurantAPI(restObj, listID) {
@@ -476,6 +491,38 @@ ullist.addEventListener("click", evt => {
     getRestaurantsFromList(id)
 })
 
+
+
+//add map
+
+function initMap() {
+    // debugger
+
+
+    // The location of nyc
+    const nyc = { lat: 40.731, lng: -73.935 };
+    const nyc2 = { lat: 40.751, lng: -73.935 };
+    const nyc3 = { lat: 40.751, lng: -73.975 };
+
+    // The map, centered at Uluru
+     map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center: nyc,
+    });
+    // The marker, positioned at Uluru
+    // const marker = new google.maps.Marker({
+    //   position: nyc,
+    //   map: map,
+    // });
+    // const marker2 = new google.maps.Marker({
+    //     position: nyc2,
+    //     map: map,
+    //   });
+    // const marker3 = new google.maps.Marker({
+    //     position: nyc3,
+    //     map: map,
+    //   });
+  }
 
 
 //initializers
