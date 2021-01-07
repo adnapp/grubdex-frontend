@@ -218,9 +218,10 @@ function renderLists(listObj){
         console.log(id)
 
         deleteListFunction(id)  
+        debugger
         console.log(user.lists)
-        setListDiv(user)
-        restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
+        setListDiv(user.lists)
+        // restaurantDiv.innerHTML= "<p> Click on a List to See Info!</p>"
         
     })
     
@@ -350,8 +351,11 @@ let handleRemoveButton = (evt) => {
 
     fetch(`http://localhost:3000/AddRestaurantToLists/${id}`, {
         method: "DELETE"
-    })
-   
+    }).then(res => res.json())
+    .then(data => console.log(data))
+    debugger
+    // we need to access the list id after object is deleted, to then render list again.
+
 }
 
 
@@ -442,20 +446,17 @@ function addRestaurantToListFetch(restaurantID, listID) {
     body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-    // debugger
-
-    
-    //we want to refresh restaurant page here, but we do not have an objj
-    //we only have the ID.
-    //our existing func uses the obj to generate.. should we create new
+    .then(data => {
+        getRestaurantsFromList(data.list_id)
+    })
 
 }
 
 function deleteListFunction(id)  {
     fetch(`http://localhost:3000/lists/${id}`, {
-            method: "DELETE"
-        })
+            method: "DELETE"})
+        // .then(res => res.json())
+        // .then(data => console.log(data))
         
     }
 
