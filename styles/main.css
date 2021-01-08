@@ -103,14 +103,23 @@
     border-color: lightblue;
     }
 
+  
+
     .btn-primary {
       background-color: rgba(31, 231, 74, 0.7) !important;
       border: none;
 
     }
 
+    .btn-primary:hover {
+      cursor: pointer !important;
+      background-color: rgba(105, 243, 135, 0.7) !important;
+    }
+
     #add-restaurant-button {
-      background-color: rgba(31, 231, 74, 0.7) !important
+      background-color: rgba(31, 231, 74, 0.7) !important;
+      margin-bottom: 7px !important;
+      font-size: small;
     }
 
     .website-button {
@@ -119,20 +128,20 @@
       
     }
 
-
-
     .btn-danger:hover {
       background-color: rgb(41, 57, 194);
       border-color: lightblue
     }
 
-    /* new list button only */
-   /* .new-list {
-      width: 40% !important;
-      font-size: medium !important; */
-      
+    #delete-list-button, .btn-outline-danger {
+      background-color: red;
+      color: white;
+    }
 
-    
+    #delete-list-button:hover {
+      background-color: rgb(175, 8, 8);
+    }
+
 
     .input-text, .input-area {
       border-radius: 10px;
@@ -164,12 +173,17 @@
       display: inline;
     }
 
-    /* .restaurant-image {
-      display: inline;
-      float: right
-      /* border: solid;
-      border-width: 10; */
-      /* border-color: rgb(21, 34, 146); */
+   .before-container, .after-container {
+     border-bottom: solid;
+   }
+
+
+
+    
+
+    .restaurant-image {
+      vertical-align: center !important;
+    }
 
    
 
@@ -181,8 +195,6 @@
       padding-right: 10px;
 
     }
-
-   
 
     .opening-image {
       align-items: center;
@@ -216,11 +228,6 @@
       background-size: cover;
       height: 800x;
     }
-
-    /* .after-login {
-      background-color: rgb(126, 192, 214);
-      background-image: none;
-    } */
 
   
 
