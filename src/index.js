@@ -320,10 +320,10 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         divCard.innerHTML = `
         <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <br>
-        <h3 class= restaurant-name>${index}. ${restaurant.name}</h3>
+        <h3 class= restaurant-index>${index}.</h3>
+        <a href="${restaurant.website_url}" ><h3 class= "rest-name">${restaurant.name}</h3></a>
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
-        <a href="${restaurant.website_url}" >Website</a>
         <br></br>
         <button class="btn btn-outline-danger">Remove Restaurant</button>
         `
@@ -368,13 +368,13 @@ function renderRestaurantAPI(restObj, listID) {
     restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
         divCard.innerHTML = `
-        <h3>${restaurant.name}</h3>
+        <br>
+        <img class = "rounded float-right" src=${restaurant.image_url} width="200" height="200">
+        <a href="${restaurant.website_url}"><h3>${restaurant.name}</h3></a>
+        
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
-        <img src=${restaurant.image_url} width="200" height="200">
-        <br></br>
 
-        <a href="${restaurant.website_url}" >Website</a>
         <br></br>
         <button class="btn btn-success" id="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
         `
