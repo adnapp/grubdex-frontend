@@ -8,6 +8,7 @@ const listUrl = 'http://localhost:3000/lists'
 const h3Title = restaurantDiv.querySelector('h3')
 const nameDiv = document.querySelector(".before-login-usernameDiv")
 const body = document.querySelector("body")
+
 var user = {}
 // var map = 
 
@@ -87,6 +88,7 @@ let setUsernameDiv = (user) => {
     nameDiv.className = "after-login-usernameDiv"
     let h3NameTag = document.createElement('h3')
     h3NameTag.innerText = `${user.name}`
+    h3NameTag.id = "user-name-on-screen"
 
     let logOutButton = document.createElement('button')
     logOutButton.className = "btn btn-danger btn-sm"
@@ -97,6 +99,22 @@ let setUsernameDiv = (user) => {
     logOutButton.addEventListener("click", (evt) => {
         logOut()
     })
+    
+    const userNameOnScreen = document.querySelector('#user-name-on-screen')
+    userNameOnScreen.addEventListener("click", userProfilePage)
+
+
+}
+
+
+let userProfilePage = () => {
+        restaurantDiv.innerHTML = 
+        `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
+        <p class='txt opening-text'>You currently have ${user.lists.length} lists</p>
+        <p class='txt opening-text'>Select a list to view restaurants</p>`
+        restaurantDiv.className = "after-login-restaurants-div"
+        rightDiv.innerHTML = ``
+    
 }
 
 let logOut = () => {
@@ -129,7 +147,7 @@ let setListDiv = (user) => {
     newDiv.innerHTML = `
     <br><br />
     <form id="create-new-list-form">
-    <h5>Create a New List</h5>
+    <h5>Create a New List 📝</h5>
     <div class="form-group">
     
         <input
@@ -260,9 +278,7 @@ function renderLists(listObj){
         removeListFromList(id)
 
         //reroute to screen where it clears divs and asks to select another list
-        
-        restaurantDiv.innerHTML = 'Select new list';        
-        rightDiv.innerHTML = ``
+        userProfilePage()
     })
 
     const updateForm = document.querySelector("#form-to-update-list")
@@ -446,7 +462,6 @@ let handleAddRestaurantToListButton = (evt) => {
 let handleLoginForm = (evt) => {
     evt.preventDefault()
     let name = evt.target.name.value
-    // console.log(name)
 
     fetch('http://localhost:3000/log_me_in', {
         method: "POST",
@@ -463,7 +478,6 @@ let handleLoginForm = (evt) => {
         if(returnedData.id) {
             user = returnedData
             showUserInformation(returnedData)
-            
             
         } else {
             console.error(returnedData.error)
@@ -549,6 +563,7 @@ ullist.addEventListener("click", evt => {
      
     getRestaurantsFromList(id)
 })
+
 
 
 //initialize map
