@@ -97,7 +97,8 @@ let setListDiv = (user) => {
     if (!user.lists[0]) {
         userHasNoLists()
     }
-    ullist.innerHTML = "<h6>Current Lists</h6>"
+    ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
+    // ullist.inn
     user.lists.forEach(renderListLi)
 
 
@@ -156,7 +157,7 @@ let setListDiv = (user) => {
         fetch('http://localhost:3000/lists', config)
         .then(resp => resp.json())
         .then(list => addListToList(list))
-
+        // debugger
         event.target.reset()
     })
 }
@@ -373,8 +374,20 @@ let searchRestaurantAPI = () => {
    
 
 }
-
+//remove from DOM and from USER
 let removeListFromList = (id) => {
+    // debugger
+
+
+    for (var i=0; i<user.lists.length; i++){
+        if (user.lists[i].id == id) {
+            
+                    user.lists.splice(i, 1); 
+                } }
+
+
+
+
     let ulList = document.querySelector('.ul_list').children
     let spreaded = [...ulList]
     let toRemove =spreaded.find(item => item.dataset.id == id)
@@ -382,8 +395,7 @@ let removeListFromList = (id) => {
 }
 
 let addListToList = (list) => {
-    // debugger
-    //if ul doesnt exist, creat it/
+    user.lists.push(list)
     let ulList = document.querySelector('.ul_list')
     li = document.createElement('li')
     li.textContent = list.title
