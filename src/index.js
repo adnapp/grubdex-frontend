@@ -325,8 +325,8 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
         <a href="${restaurant.website_url}" >Website</a>
-        <button>Remove Restaurant</button>
-        <br>
+        <br></br>
+        <button class="btn btn-outline-danger">Remove Restaurant</button>
         `
         const removeBtn = divCard.querySelector('button')
         
@@ -377,9 +377,9 @@ function renderRestaurantAPI(restObj, listID) {
 
         <a href="${restaurant.website_url}" >Website</a>
         <br></br>
-        <button class="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
+        <button class="btn btn-success" id="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
         `
-        const addBtn = divCard.querySelector('.add-restaurant-button')
+        const addBtn = divCard.querySelector('#add-restaurant-button')
         // debugger
         addBtn.addEventListener("click", evt=> {
             let restaurantID = evt.target.dataset.id;
