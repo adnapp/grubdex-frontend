@@ -50,16 +50,9 @@ let setUsernameDiv = (user) => {
     h3NameTag.innerText = `${user.name}`
     h3NameTag.id = "user-name-on-screen"
 
-    let logOutButton = document.createElement('button')
-    logOutButton.className = "btn btn-danger btn-sm"
-    logOutButton.innerText = "Logout"
+    nameDiv.append(h3NameTag)
 
-    nameDiv.append(h3NameTag, logOutButton)
-
-    logOutButton.addEventListener("click", (evt) => {
-        logOut()
-    })
-    
+   
     const userNameOnScreen = document.querySelector('#user-name-on-screen')
     userNameOnScreen.addEventListener("click", userProfilePage)
 
@@ -74,7 +67,13 @@ let userProfilePage = () => {
         <p class='txt opening-text'>Select a list to view restaurants</p>`
         restaurantDiv.className = "after-login-restaurants-div"
         rightDiv.innerHTML = ``
-    
+
+        let logOutButton = document.createElement('button')
+        logOutButton.className = "btn btn-danger btn-sm"
+        logOutButton.innerText = "Logout"
+
+        restaurantDiv.append(logOutButton)
+        logOutButton.addEventListener("click", logOut)
 }
 
 let logOut = () => {
@@ -101,64 +100,13 @@ let setListDiv = (user) => {
     user.lists.forEach(renderListLi)
 
 
-    newDiv = document.createElement('div')
-    newDiv.innerHTML = `
-    <br><br />
-    <form id="create-new-list-form">
-    <h5>Create a New List 📝</h5>
-    <div class="form-group">
-    
-        <input
-        type="text"
-        name="title"
-        placeholder="Enter the list name..."
-        />
-    </div>
-    <div class="form-group">
-        <input
-        type="text"
-        name="description"
-        placeholder="Enter list desription..."
-        />
-    </div>
-    <input
-      type="submit"
-      name="submit"
-      value="Create New List"
-      class="btn btn-primary btn-sm"
-    />
-  </form>`
-   
-  sideBarDiv.append(newDiv)
-    
-    const createList = document.querySelector('#create-new-list-form')
-    
-    createList.addEventListener('submit', function (event){
-        const id = user.id
-        event.preventDefault()
-    
-        const newListObj = {
-            title: event.target.title.value, 
-            description: event.target.description.value, 
-            restaurants: [],
-            user_id: id
-        }
-    
-        const config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: JSON.stringify(newListObj)
-        }
-    
-        fetch('http://localhost:3000/lists', config)
-        .then(resp => resp.json())
-        .then(list => addListToList(list))
+    newListButton = document.createElement('button')
+    newListButton.className = "btn btn-outline-primary btn-sm"
+    newListButton.innerHTML = `Add a new list`
+    sideBarDiv.append(newListButton)
 
-        event.target.reset()
-    })
+    newListButton.addEventListener("click", showAddListPage)
+    
 }
 
 let renderListLi = (list) => {
@@ -185,8 +133,6 @@ function renderLists(listObj){
         <br></br>
         <button class="btn btn-secondary btn-sm" id="delete-list-button" data-id = ${id} >Delete list</button>
         <br></br>
-
-       
 
         <h5>Update List Info</h5>
         <form id="form-to-update-list">
@@ -374,8 +320,20 @@ let searchRestaurantAPI = () => {
    
 
 }
-
+//remove from DOM and from USER
 let removeListFromList = (id) => {
+    // debugger
+
+
+    for (var i=0; i<user.lists.length; i++){
+        if (user.lists[i].id == id) {
+            
+                    user.lists.splice(i, 1); 
+                } }
+
+
+
+
     let ulList = document.querySelector('.ul_list').children
     let spreaded = [...ulList]
     let toRemove =spreaded.find(item => item.dataset.id == id)
@@ -383,18 +341,84 @@ let removeListFromList = (id) => {
 }
 
 let addListToList = (list) => {
-    // debugger
-    //if ul doesnt exist, creat it/
+    user.lists.push(list)
     let ulList = document.querySelector('.ul_list')
     li = document.createElement('li')
     li.textContent = list.title
     li.dataset.id = list.id 
     ulList.appendChild(li)
+    getRestaurantsFromList(list.id)
 }
 
 let userHasNoLists = (input) => {
     // debugger
 }
+
+
+let showAddListPage = () => {
+
+    restaurantDiv.innerHTML =``
+    rightDiv.innerHTML = ``
+    newDiv = document.createElement('div')
+    newDiv.innerHTML = `
+    <br><br />
+    <form id="create-new-list-form">
+    <h5>Create a New List 📝</h5>
+    <div class="form-group">
+    
+        <input
+        type="text"
+        name="title"
+        placeholder="Enter the list name..."
+        />
+    </div>
+    <div class="form-group">
+        <input
+        type="text"
+        name="description"
+        placeholder="Enter list desription..."
+        />
+    </div>
+    <input
+      type="submit"
+      name="submit"
+      value="Create New List"
+      class="btn btn-primary btn-sm"
+    />
+  </form>`
+   
+  restaurantDiv.append(newDiv)
+    
+    const createList = document.querySelector('#create-new-list-form')
+    
+    createList.addEventListener('submit', function (event){
+        const id = user.id
+        event.preventDefault()
+    
+        const newListObj = {
+            title: event.target.title.value, 
+            description: event.target.description.value, 
+            restaurants: [],
+            user_id: id
+        }
+    
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(newListObj)
+        }
+    
+        fetch('http://localhost:3000/lists', config)
+        .then(resp => resp.json())
+        .then(list => addListToList(list))
+        // debugger
+        event.target.reset()
+    })
+}
+
 
 // Fetch functions
 
