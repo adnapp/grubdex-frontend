@@ -121,7 +121,7 @@ let setListDiv = (user) => {
     if (!user.lists[0]) {
         userHasNoLists()
     }
-    ullist.innerHTML = "<h6>Current Lists</h6>"
+    ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
     user.lists.forEach(renderListLi)
 
 
@@ -213,27 +213,25 @@ function renderLists(listObj){
 
        
 
-        <form class="form-control">
         <h5>Update List Info</h5>
+        <form>
         <div class="form-group">
             <label for="title">Title:</label>
             <input
-            type="text"
-            class="form-control"
-            id="title"
-            value= ${listObj.title}
-        />
-        <br><br />
-        <label for="description">Description:</label>
+                type="text"
+                class="form-control"
+                id="title"
+                value= "${listObj.title}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
             <textarea
-            class="form-control"
-            id = "description"
-            name="description"
-            rows = "2"  
-            >
-            ${listObj.description}
-            </textarea>
-        <br><br />
+                class="form-control"
+                id = "description"
+                name="description"
+                rows = "2"  
+            >${listObj.description}</textarea>
+        </div>
         <input
           type="submit"
           name="submit"
