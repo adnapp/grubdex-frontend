@@ -64,7 +64,14 @@ let userProfilePage = () => {
         restaurantDiv.innerHTML = 
         `<h4 class= 'txt opening-title'>This is Grubdex, ${user.name}!</h4>
         <p class='txt opening-text'>You currently have ${user.lists.length} lists</p>
-        <p class='txt opening-text'>Select a list to view restaurants</p>`
+        <p class='txt opening-text'>Select a list to view restaurants. Some ideas of lists: </p>
+        <ul class="list-group">
+            <li>♦ "Las Vegas Favorite Steakhouses"</li>
+            <li>♦ "NYC Restaurants with the most amount of outdoor heaters ⛄️"</li>
+        </ul>
+        <br>
+        <p><i>Ability to share lists with other users coming soon!</i></p>
+        <br>`
         restaurantDiv.className = "after-login-restaurants-div"
         rightDiv.innerHTML = ``
 
