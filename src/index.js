@@ -80,7 +80,7 @@ let setUsernameDiv = (user) => {
     restaurantDiv.innerHTML = 
     `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
     <img class='opening-image' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2583y6P6gdT2i49HFtbfUCyFMsDdwgSC7w&usqp=CAU >
-    <p class='blockquote text-center txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
+    <p class='txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
     restaurantDiv.className = "after-login-restaurants-div"
 
     nameDiv.innerHTML = " "
@@ -122,30 +122,29 @@ let setListDiv = (user) => {
         userHasNoLists()
     }
     ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
-    ullist.className = "list-inline"
     user.lists.forEach(renderListLi)
 
 
     newDiv = document.createElement('div')
     newDiv.innerHTML = `
     <br><br />
-    <form class="create-new-list-form">
+    <form id="create-new-list-form">
     <h5>Create a New List</h5>
-    <input
-      type="text"
-      name="title"
-      placeholder="Enter the list name..."
-      class="input-text" 
-    />
-    <br><br />
-    <input
-      type="text"
-      name="description"
-      placeholder="Enter list desription..."
-      class="input-area"
-    />
-   
-    <br><br />
+    <div class="form-group">
+    
+        <input
+        type="text"
+        name="title"
+        placeholder="Enter the list name..."
+        />
+    </div>
+    <div class="form-group">
+        <input
+        type="text"
+        name="description"
+        placeholder="Enter list desription..."
+        />
+    </div>
     <input
       type="submit"
       name="submit"
@@ -156,7 +155,7 @@ let setListDiv = (user) => {
    
   sideBarDiv.append(newDiv)
     
-    const createList = document.querySelector('.create-new-list-form')
+    const createList = document.querySelector('#create-new-list-form')
     
     createList.addEventListener('submit', function (event){
         const id = user.id
@@ -213,11 +212,9 @@ function renderLists(listObj){
 
        
 
-        <h5>Update List Info:</h5>
-        <form>
+        <h5>Update List Info</h5>
+        <form id="form-to-update-list">
         <div class="form-group">
-        
-        <form class="form-control">
             <label for="title">Title:</label>
             <input
                 type="text"
@@ -240,9 +237,8 @@ function renderLists(listObj){
           value="Update List"
           class="btn btn-primary btn-sm"
         />
-
-        </form>
         </div>
+        </form>
         
         
         `
@@ -269,10 +265,10 @@ function renderLists(listObj){
         rightDiv.innerHTML = ``
     })
 
-    const updateForm = document.querySelector(".form-control")
+    const updateForm = document.querySelector("#form-to-update-list")
     updateForm.dataset.id = listObj.id
-
     updateForm.addEventListener("submit", evt => {
+        // debugger
         evt.preventDefault()
         const id = evt.target.dataset.id
         
@@ -318,12 +314,22 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         const divCard = document.createElement('div')
         divCard.className = "container"
         divCard.innerHTML = `
+<<<<<<< HEAD
         <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <br>
         <h3 class= restaurant-index>${index}.</h3>
         <a href="${restaurant.website_url}" ><h3 class= "rest-name">${restaurant.name}</h3></a>
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
+=======
+        <h3 class= restaurant-name>${index}. ${restaurant.name}</h3>
+        <img class= restaurant-image src=${restaurant.image_url} width="150" height="150">
+        <h4>${restaurant.cuisine}</h4>
+        <h4 class= restaurant-address>${restaurant.address}</h4>
+        <br></br>
+
+        <a href="${restaurant.website_url}" >Website</a>
+>>>>>>> 2241f85633543f07a611f732a43ecb7d41b8b1f2
         <br></br>
         <button class="btn btn-outline-danger">Remove Restaurant</button>
         `
