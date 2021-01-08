@@ -10,8 +10,6 @@ const nameDiv = document.querySelector(".before-login-usernameDiv")
 const body = document.querySelector("body")
 
 var user = {}
-// var map = 
-
 
 
 // Render functions
@@ -109,7 +107,7 @@ let setUsernameDiv = (user) => {
 
 let userProfilePage = () => {
         restaurantDiv.innerHTML = 
-        `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
+        `<h4 class= 'txt opening-title'>This is Grubdex, ${user.name}!</h4>
         <p class='txt opening-text'>You currently have ${user.lists.length} lists</p>
         <p class='txt opening-text'>Select a list to view restaurants</p>`
         restaurantDiv.className = "after-login-restaurants-div"
@@ -320,8 +318,10 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
     if (restObj[0]){
         initMap()
     } else  {
+        document.getElementById("map").remove()
+        
         const divCard = document.createElement('div')
-        divCard.innerHTML = `<h3>add some restaurants to this list!</h3>`
+        divCard.innerHTML = `<br><br><h5 id="empty-list">You should try and add some restaurants to this list 🍱</h5>`
         restaurantDiv.append(divCard)
     }
     
