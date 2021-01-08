@@ -109,9 +109,17 @@
 
     }
 
-    /* h5 {
-      display: inline;
-    } */
+    #add-restaurant-button {
+      background-color: rgba(31, 231, 74, 0.7) !important
+    }
+
+    .website-button {
+      color: white;
+      text-decoration: none;
+      
+    }
+
+
 
     .btn-danger:hover {
       background-color: rgb(41, 57, 194);
@@ -148,7 +156,11 @@
       padding-top: 10px;
     }
 
-    .restaurant-name {
+    .restaurant-index {
+      display: inline;
+    }
+
+    .rest-name {
       display: inline;
     }
 

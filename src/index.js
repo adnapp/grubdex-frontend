@@ -25,50 +25,12 @@ let showLoginPage = () => {
     <input type="submit" class="submit" value="LOGIN"></input>`
 
    const loginForm = document.querySelector('.login-form')
-   
-    // let loginForm = document.createElement('form')
-    // loginForm.classList.add('centered')
-    // loginForm.setAttribute("id", "login")
-
-    // let h1Welcome = document.createElement('h1')
-    // h1Welcome.classList.add("form-heading")
-    // h1Welcome.innerText = "Welcome to Grubdex"
-
-
-    // let nameDiv = document.createElement('div')
-    // nameDiv.className = "form__group"
-    // let nameLabel = document.createElement('label')
-    // nameLabel.className = "form__label"
-    // nameLabel.htmlFor = "name"
-    // nameLabel.innerText = "name"
-    
-
-    // let nameInput = document.createElement('input')
-    // nameInput.type = "text"
-    // nameInput.className = "input-block-level"
-    // nameInput.id = "name"
-    // nameInput.placeholder = "Enter Name"
-    // nameInput.autocomplete = "off"
-
-    // nameDiv.append(nameLabel, nameInput)
-
-    // let submitButton = document.createElement('button')
-    // submitButton.type = "submit"
-    // submitButton.className = "btn btn--large"
-    // submitButton.innerText = "Login"
-
-    // loginForm.append(h1Welcome, nameDiv, submitButton)
-
-    // restaurantDiv.append(loginForm)
-
 
     loginForm.addEventListener("submit", handleLoginForm)
-
 }
 
 
 let showUserInformation = (user) => {
-    // body.className = "after-login"
     setUsernameDiv(user)
     setListDiv(user)
 }
@@ -129,15 +91,13 @@ let logOut = () => {
 
 //this loads the list div on the left after login
 let setListDiv = (user) => {
-    // debugger
     sideBarDiv.innerHTML = " "
     sideBarDiv.className = "after-login-sidebarDiv"
 
-    // debugger
     if (!user.lists[0]) {
         userHasNoLists()
     }
-    ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
+    ullist.innerHTML = "<h6>Current Lists</h6>"
     user.lists.forEach(renderListLi)
 
 
@@ -330,13 +290,12 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         const divCard = document.createElement('div')
         divCard.className = "container"
         divCard.innerHTML = `
-        <h3 class= restaurant-name>${index}. ${restaurant.name}</h3>
-        <img class= restaurant-image src=${restaurant.image_url} width="150" height="150">
+        <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
+        <br>
+        <h3 class= restaurant-index>${index}.</h3>
+        <a href="${restaurant.website_url}" ><h3 class= "rest-name">${restaurant.name}</h3></a>
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
-        <br></br>
-
-        <a href="${restaurant.website_url}" >Website</a>
         <br></br>
         <button class="btn btn-outline-danger">Remove Restaurant</button>
         `
@@ -381,13 +340,13 @@ function renderRestaurantAPI(restObj, listID) {
     restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
         divCard.innerHTML = `
-        <h3>${restaurant.name}</h3>
+        <br>
+        <img class = "rounded float-right" src=${restaurant.image_url} width="200" height="200">
+        <a href="${restaurant.website_url}"><h3>${restaurant.name}</h3></a>
+        
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
-        <img src=${restaurant.image_url} width="200" height="200">
-        <br></br>
 
-        <a href="${restaurant.website_url}" >Website</a>
         <br></br>
         <button class="btn btn-success" id="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
         `
