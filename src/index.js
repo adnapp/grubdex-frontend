@@ -323,7 +323,7 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
 
         <a href="${restaurant.website_url}" >Website</a>
         <br></br>
-        <button class="btn btn-danger">Remove Restaurant</button>
+        <button class="btn btn-outline-danger">Remove Restaurant</button>
         `
         const removeBtn = divCard.querySelector('button')
         
