@@ -31,10 +31,9 @@
 
     
     .headerDiv { grid-area: 1 / 1 / 4 / 8;
-      /* background-image: url('https://cdn.vox-cdn.com/thumbor/4qWe1OkMWqvpgdlN34k4p3iyBkg=/0x0:2000x1200/1200x480/filters:focal(840x440:1160x760)/cdn.vox-cdn.com/uploads/chorus_image/image/63954124/Header_Image_2000x1200__1_.0.jpg'); */
+      /* background-image: url('https://cdn.dribbble.com/users/1879290/screenshots/4604223/header.jpg'); */
       /* opacity: 0.5; */
-      /* border: 0.5px solid; */
-      /* border-color: darkgreen; */
+      /* border-bottom: 0.5px solid; */
       padding: 10px;
       font-family: Rockwell;
       color: rgb(21, 34, 146);
@@ -77,7 +76,7 @@
 
     }
     .after-login-usernameDiv { grid-area: 4 / 1 / 5 / 3;
-      background-color: rgba(155, 192, 248, 0.7);
+      background-color: rgba(156, 185, 226, 0.767);
       font-family: Rockwell;
       color: rgb(21, 34, 146);
      }
@@ -88,7 +87,7 @@
     }
 
     .after-login-sidebarDiv { grid-area: 5 / 1 / 9 / 3; 
-      background-color: rgba(155, 192, 248, 0.7);
+      background-color: rgba(156, 185, 226, 0.767);
       font-family: Rockwell;
       color: rgb(21, 34, 146);
     }
@@ -123,7 +122,9 @@
     
 
     .input-text, .input-area {
-      border-radius: 30px;
+      border-radius: 20px;
+      /* font-size: small; */
+
     }
 
     .before-login-restaurants-div { grid-area: 4 / 3 / 9 / 7;
@@ -138,26 +139,27 @@
       position: relative;
       overflow-x:hidden !important;
       overflow-y:auto;
-      background-color: rgba(155, 192, 248, 0.7);
+      background-color: rgba(156, 185, 226, 0.767);
       font-family: Rockwell;
       color: rgb(21, 34, 146);
 
     }
 
-    /* .restaurant-name {
+    .restaurant-name {
       display: inline;
-    } */
+    }
 
-    .restaurant-image {
-      vertical-align: top;
+    /* .restaurant-image {
+      display: inline;
+      float: right
       /* border: solid;
       border-width: 10; */
       /* border-color: rgb(21, 34, 146); */
 
-    }
+    } */
 
     .other-div { grid-area: 4 / 7 / 9 / 8; 
-      background-color: rgba(155, 192, 248, 0.7);
+      background-color:rgba(156, 185, 226, 0.767);
       font-family: Rockwell;
       color: rgb(21, 34, 146);
     }
@@ -176,7 +178,8 @@
 
     .opening-text {
       font-size: larger;
-      text-shadow: 2px 2px white
+      text-shadow: 2px 2px white;
+      width: 50%;
     }
 
     * {

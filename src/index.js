@@ -80,7 +80,7 @@ let setUsernameDiv = (user) => {
     restaurantDiv.innerHTML = 
     `<h4 class= 'txt opening-title'>Welcome To Grubdex, ${user.name}!</h4>
     <img class='opening-image' src=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2583y6P6gdT2i49HFtbfUCyFMsDdwgSC7w&usqp=CAU >
-    <p class='txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
+    <p class='blockquote text-center txt opening-text'>"Sharing food with another human being is an intimate act that should not be indulged in lightly" - M.F.K. Fisher</p>`
     restaurantDiv.className = "after-login-restaurants-div"
 
     nameDiv.innerHTML = " "
@@ -121,8 +121,8 @@ let setListDiv = (user) => {
     if (!user.lists[0]) {
         userHasNoLists()
     }
-    sideBarDiv.innerHTML= "<h6>Current Lists</h6>"
-    ullist.innerHTML = " "
+    ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
+    ullist.className = "list-inline"
     user.lists.forEach(renderListLi)
 
 
@@ -212,24 +212,29 @@ function renderLists(listObj){
         <button class="btn btn-secondary btn-sm" id="delete-list-button" data-id = ${id} >Delete list</button>
         <br></br>
 
-        <div class="form-group">
+       
+
         <h5>Update List Info:</h5>
+        <form>
+        <div class="form-group">
+        
         <form class="form-control">
             <label for="title">Title:</label>
             <input
-            type="text"
-            class="form-control"
-            id="title"
-            value= "${listObj.title}"/>
-        <br><br />
-        <label for="description">Description:</label>
+                type="text"
+                class="form-control"
+                id="title"
+                value= "${listObj.title}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
             <textarea
-            class="form-control"
-            id = "description"
-            name="description"
-            rows = "2"  
+                class="form-control"
+                id = "description"
+                name="description"
+                rows = "2"  
             >${listObj.description}</textarea>
-        <br><br />
+        </div>
         <input
           type="submit"
           name="submit"
@@ -314,15 +319,14 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         const divCard = document.createElement('div')
         divCard.className = "container"
         divCard.innerHTML = `
+        <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
+        <br>
         <h3 class= restaurant-name>${index}. ${restaurant.name}</h3>
-        <img class= restaurant-image src=${restaurant.image_url} width="150" height="150">
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
-        <br></br>
-
         <a href="${restaurant.website_url}" >Website</a>
-        <br></br>
         <button>Remove Restaurant</button>
+        <br>
         `
         const removeBtn = divCard.querySelector('button')
         
