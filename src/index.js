@@ -212,6 +212,7 @@ function renderLists(listObj){
 
     addRestaurantToListButton.addEventListener("click", event=> {
         restaurantDiv.innerHTML = ``
+        rightDiv.innerHTML = ``
         
         listID = event.target.dataset.id
 
@@ -243,7 +244,7 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
         const divCard = document.createElement('div')
         divCard.className = "before-container"
         divCard.innerHTML = `
-        <br>
+        <br><br><br>
         <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <h3 class= restaurant-index>${index}.</h3>
         <a href="${restaurant.website_url}" ><h3 class= "rest-name">${restaurant.name}</h3></a>
@@ -380,11 +381,15 @@ let showAddListPage = () => {
         />
     </div>
     <div class="form-group">
-        <input
-        type="text"
-        name="description"
-        placeholder="Enter list desription..."
-        />
+        <label for="description">List Description:</label>
+        <br>
+        <textarea
+            name="description"
+            id:"description"
+            rows = "4"></textarea>
+
+    
+       
     </div>
     <input
       type="submit"

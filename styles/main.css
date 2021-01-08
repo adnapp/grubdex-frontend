@@ -81,7 +81,7 @@
       color: rgb(21, 34, 146);
       padding-left: 10px;
       padding-right: 10px;
-      padding-top: 10px
+      padding-top: 10px;
      }
 
     
@@ -163,6 +163,7 @@
       font-family: Rockwell;
       color: rgb(21, 34, 146);
       padding-top: 10px;
+
     }
 
     .restaurant-index {
@@ -226,7 +227,8 @@
       background-image: url("https://wallpaperaccess.com/full/2262.jpg");
       background-position: bottom;
       background-size: cover;
-      height: 800x;
+      height: 10000x;
+      margin: 0
     }
 
   
