@@ -130,22 +130,21 @@ let setListDiv = (user) => {
     newDiv.innerHTML = `
     <br><br />
     <form class="create-new-list-form">
-    <h5>Create a new list</h5>
+    <h5>Create a New List</h5>
     <input
       type="text"
       name="title"
-      value=""
-      placeholder="Enter the list's name..."
+      placeholder="Enter the list name..."
       class="input-text" 
     />
     <br><br />
     <input
       type="text"
       name="description"
-      value=""
-      placeholder="Enter the list desription"
+      placeholder="Enter list desription..."
       class="input-area"
     />
+   
     <br><br />
     <input
       type="submit"
