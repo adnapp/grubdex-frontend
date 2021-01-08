@@ -104,7 +104,6 @@ let setListDiv = (user) => {
         userHasNoLists()
     }
     ullist.innerHTML = "<h6><u>Current Lists</u></h6>"
-    // ullist.inn
     user.lists.forEach(renderListLi)
 
 
@@ -242,16 +241,17 @@ function renderRestaurantsOnList(restObj,addRestToListsObj) {
     restObj.forEach((restaurant,index) => {
         index = (index + 1).toString()
         const divCard = document.createElement('div')
-        divCard.className = "container"
+        divCard.className = "before-container"
         divCard.innerHTML = `
-        <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <br>
+        <img class="rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <h3 class= restaurant-index>${index}.</h3>
         <a href="${restaurant.website_url}" ><h3 class= "rest-name">${restaurant.name}</h3></a>
         <h4>${restaurant.cuisine}</h4>
         <h4 class= restaurant-address>${restaurant.address}</h4>
-        <br></br>
         <button class="btn btn-outline-danger">Remove Restaurant</button>
+        <br>
+        <br>
         `
         const removeBtn = divCard.querySelector('button')
         
@@ -293,16 +293,16 @@ function renderRestaurantAPI(restObj, listID) {
     // debugger
     restObj.forEach(restaurant => {
         const divCard = document.createElement('div')
+        divCard.className = "after-container"
         divCard.innerHTML = `
         <br>
-        <img class = "rounded float-right" src=${restaurant.image_url} width="200" height="200">
+        <img class = "rounded float-right" src=${restaurant.image_url} width="150" height="150">
         <a href="${restaurant.website_url}"><h3>${restaurant.name}</h3></a>
         
         <h4>${restaurant.cuisine}</h4>
         <h4>${restaurant.address}</h4>
-
-        <br></br>
         <button class="btn btn-success" id="add-restaurant-button" data-id = ${restaurant.id}>Add Restaurant to List</button>
+        
         `
         const addBtn = divCard.querySelector('#add-restaurant-button')
         // debugger
@@ -515,6 +515,8 @@ function getOneList(id) {
 
 }
 
+//
+
 function addRestaurantToListFetch(restaurantID, listID) {
     // debugger
     const data = { 
@@ -573,3 +575,4 @@ function initMap() {
 
 //initializers
 showLoginPage()
+
