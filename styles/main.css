@@ -126,9 +126,15 @@
 
     
 
+<<<<<<< HEAD
     /* .input-text, .input-area {
       border-radius: 10px;
     } */
+=======
+    .input-text, .input-area {
+      border-radius: 10px;
+    }
+>>>>>>> 97fb37b392f365ab178327f68ff7cac1c1038ea3
 
     .before-login-restaurants-div { grid-area: 4 / 3 / 9 / 7;
       position: relative;
