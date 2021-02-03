@@ -1,5 +1,4 @@
-Grubdex was built so that users can create and add to lists of restaurants in NYC
-
+Grubdex is a personal restaurant organizer application built using Ruby on Rails backend and JavaScript frontend
 
 After setting up the <a href="https://github.com/adnapp/grubdex-backend">backend</a>, start the front end by opening index.html.
 
